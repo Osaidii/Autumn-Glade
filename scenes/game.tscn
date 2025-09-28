@@ -7,16 +7,29 @@
 [ext_resource type="PackedScene" uid="uid://bh60e7xm06k84" path="res://scenes/theif_enemy.tscn" id="5_iywne"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lbhrr"]
-size = Vector2(2721.61, 92.0545)
+size = Vector2(14864.2, 2516.03)
 
 [node name="Game" type="Node2D"]
 
-[node name="ground" parent="." instance=ExtResource("1_yqjtg")]
-position = Vector2(-25, 0)
+[node name="Enemies" type="Node" parent="."]
 
-[node name="player" parent="." instance=ExtResource("2_lnu2h")]
-position = Vector2(-479, -63)
-scale = Vector2(1.1, 1.1)
+[node name="TheifEnemy" parent="Enemies" instance=ExtResource("5_iywne")]
+position = Vector2(-645, -47)
+scale = Vector2(0.9, 0.9)
+
+[node name="Potions" type="Node" parent="."]
+
+[node name="Potion" parent="Potions" instance=ExtResource("4_lbhrr")]
+position = Vector2(-69, -5)
+
+[node name="Potion2" parent="Potions" instance=ExtResource("4_lbhrr")]
+position = Vector2(-81, -5)
+
+[node name="Potion3" parent="Potions" instance=ExtResource("4_lbhrr")]
+position = Vector2(-94, -5)
+
+[node name="Potion4" parent="Potions" instance=ExtResource("4_lbhrr")]
+position = Vector2(-106, -5)
 
 [node name="danger" type="Area2D" parent="."]
 position = Vector2(-344, -14)
@@ -25,37 +38,14 @@ monitorable = false
 script = ExtResource("3_lnu2h")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="danger"]
-position = Vector2(239.5, 197.321)
+position = Vector2(936.5, 1452.82)
 scale = Vector2(0.730818, 1.0359)
 shape = SubResource("RectangleShape2D_lbhrr")
 
-[node name="Potion" parent="." instance=ExtResource("4_lbhrr")]
-position = Vector2(-69, -5)
+[node name="ground" parent="." instance=ExtResource("1_yqjtg")]
+position = Vector2(-25, 0)
 
-[node name="Potion2" parent="." instance=ExtResource("4_lbhrr")]
-position = Vector2(-81, -5)
-
-[node name="Potion3" parent="." instance=ExtResource("4_lbhrr")]
-position = Vector2(-94, -5)
-
-[node name="Potion4" parent="." instance=ExtResource("4_lbhrr")]
-position = Vector2(-106, -4)
-
-[node name="Label" type="Label" parent="."]
-offset_left = -385.0
-offset_top = -164.0
-offset_right = -222.0
-offset_bottom = -11.0
-text = "WASD to move, 
-Right Click to attack,
-Left Click to Block,
-Press R to get hurt, 
-Press E to Heal and
-Shift to Run"
-
-[node name="TheifEnemy" parent="." node_paths=PackedStringArray("player") instance=ExtResource("5_iywne")]
-position = Vector2(-645, -47)
-scale = Vector2(0.9, 0.9)
-player = NodePath("../player")
+[node name="Player" parent="." instance=ExtResource("2_lnu2h")]
+position = Vector2(-162, -216)
 
 [connection signal="body_entered" from="danger" to="danger" method="_on_body_entered"]

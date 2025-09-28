@@ -1,396 +1,214 @@
-class_name Player
 extends CharacterBody2D
+class_name Player
 
-@onready var animator: AnimatedSprite2D = $Animations
+var SPEED = 4000
+@export var gravity = 800
+@export var walkspeed = 4000
+@export var runspeed = 8000
+@export var JUMP_VELOCITY = -230.0
+@export var health = 100
+
+var direction: int
+
+@onready var animations: AnimatedSprite2D = $Animations
 @onready var collision: CollisionShape2D = $Collision
 @onready var health_bar: TextureProgressBar = $"Game Screen/HealthBar"
-@onready var how_many_bottles: Label = $"Game Screen/Label"
-@onready var attack_cooldown: Timer = $"Attack Cooldown"
-@onready var combo_timer: Timer = $"Attack Combo"
-
-@export var Jump_Velocity = -210
-@export var Walk_Speed = 45
-@export var Run_Speed = 120
-@export var climb_speed = -50
-@export var currenthealth = 100
+@onready var num_of_bottles: Label = $"Game Screen/Label"
+@onready var attack_cooldown: Timer = $attack_cooldown
+@onready var combo_reset: Timer = $combo_reset
 
 const IDLE = preload("res://collisions/idle.tres")
 const CROUTCH = preload("res://collisions/croutch.tres")
 
-var can_climb = false
-var can_control = true
-var can_crouch = true
-var can_attack = true
-var is_blocking = false
-var is_climbing = false
-var is_healing = false
+var is_walking = false
+var is_running = false
+var is_jumping = false
 var is_falling = false
 var is_crouching = false
+var is_dead = false
+var is_healing = false
 var is_attacking = false
-var is_jumping = false
-var is_reloading = false
-var combo_state : int = 0
+var is_blocking = false
+var can_attack = true
 
-const gravity = 9.8
-var dir
-var main_sm : LimboHSM
-var speed = 45
+enum AttackStates {ATT1, ATT2, ATT3, CROUCH}
+var which_att_state = AttackStates.ATT1
+
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("damage_temp"):
+		health -= 30
+	if event.is_action_pressed("heal") and !is_crouching and !is_falling and !is_blocking and !is_jumping and HealthBottles.health_bottles > 0 and health < 100:
+		is_healing = true
+		health += 30
+		HealthBottles.health_bottles -= 1
+	if event.is_action_pressed("block") and !is_crouching and !is_falling and !is_jumping:
+		is_blocking = true
+	if event.is_action_pressed("attack") and !is_jumping and !is_falling and !is_blocking and !is_healing and can_attack:
+		if is_attacking:
+			pass
+		else:
+			is_attacking = true
+			if is_crouching:
+				which_att_state = AttackStates.CROUCH
+			attack_anims()
 
 func _ready():
-	initate_state_machine()
-	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-	HealthBottles.health_bottles = 0
+	collision.disabled = false
 	collision.shape = IDLE
-	collision.position.x = 0 
-	collision.position.y = 0 
-	is_reloading = false
-
-func _unhandled_input(event):
-	if !can_control: return
-	if event.is_action_pressed("damage_temp"):
-		currenthealth -= 30
-	if event.is_action_pressed("slide") and !is_attacking and is_on_floor() and !is_crouching and !is_falling and !is_jumping and !is_healing:
-		main_sm.dispatch(&"go_slide")
-	if event.is_action_pressed("heal") and !is_attacking and is_on_floor() and !is_crouching and !is_falling and !is_jumping and HealthBottles.health_bottles > 0 and currenthealth < 100:
-		main_sm.dispatch(&"go_heal")
-	if event.is_action_pressed("crouch") and is_on_floor() and !is_jumping and !is_attacking and !is_falling and !is_healing:
-		main_sm.dispatch(&"go_crouch")
-	if event.is_action_pressed("attack") and can_attack and is_on_floor() and !is_jumping and !is_falling and !is_healing:
-		main_sm.dispatch(&"go_attack")
-	if event.is_action_pressed("block") and is_on_floor() and !is_jumping and !is_falling and !is_healing and !is_attacking and !is_crouching:
-		main_sm.dispatch(&"go_block")
-	if event.is_action_pressed("jump") and is_on_floor() and !is_attacking and !is_crouching and !is_falling and !is_healing:
-			main_sm.dispatch(&"go_jump")
+	collision.position.x = 0
+	collision.position.y = 0
+	is_dead = false
+	HealthBottles.health_bottles = 0
 
 func _physics_process(delta: float) -> void:
-	if !can_control: 
-		main_sm.dispatch(&"go_die")
-		return
-
-	how_many_bottles.text = str(HealthBottles.health_bottles)
+	#No Control if Dead
+	if is_dead: return
+	if is_attacking: return
 	
-	print(main_sm.get_active_state())
+	#Handle Health Bar
+	health_bar.change_health(health)
 	
-	if currenthealth < 0:
-		can_control = false
-		main_sm.dispatch(&"go_die")
+	#Handle Health Bottles
+	num_of_bottles.text = str(HealthBottles.health_bottles)
 	
-	#Change Variables
-	if is_on_floor() and attack_cooldown.is_stopped():
-		can_attack = true
-	if !is_on_floor() and !attack_cooldown.is_stopped():
-		can_attack = false
 	
-	#Handle Fall
-	if velocity.y > 0 and !is_on_floor():
-		main_sm.dispatch(&"go_fall")
+	#Direction Set
+	direction = Input.get_action_strength("right") - Input.get_action_strength("left")
 	
-	#Change Speed
-	if Input.is_action_pressed("run"):
-		speed = Run_Speed
-	else:
-		speed = Walk_Speed
+	#Health Set
+	healthset()
 	
-	#Handle Health Bar and Health
-	if currenthealth >= 100:
-		currenthealth = 100
-	if currenthealth <= 0:
-		currenthealth = 0
-	health_bar.change_health(currenthealth)
+	#Play Anims
+	anims()
 	
-	# Get Direction
-	dir = Input.get_action_strength("right") - Input.get_action_strength("left")
-	#Move
-	if dir:
-		velocity.x = dir * speed
-	else:
-		velocity.x = move_toward(velocity.x, 0 , 2000 * delta)
-			
-	#Gravity
-	velocity.y += gravity
-	
-	#Face Correct Direction
+	#Change Direction
 	facing_dir()
 	
-	if !is_attacking and !is_crouching and !is_healing and !is_blocking:
-		move_and_slide()
-
-func _on_attack_combo_timeout() -> void:
-	combo_state = 0
-
-func cooldown_finish() -> void:
-	can_attack = true
-
-func facing_dir():
-	if !can_control: return
-	if !is_attacking and !is_blocking:
-		if dir < 0:
-			animator.flip_h = true
-			collision.position.x = -5
-		if dir > 0:
-			animator.flip_h = false
-			collision.position.x = 0
-
-func initate_state_machine():
-	main_sm = LimboHSM.new()
-	add_child(main_sm)
+	#Change Speed
+	if Input.is_action_pressed("run") and direction != 0 and !is_crouching and !is_blocking and !is_healing:
+		SPEED = runspeed
+		is_running = true
+	elif !Input.is_action_pressed("run") and direction != 0 and !is_blocking and !is_crouching and !is_healing:
+		is_running = false
+		is_walking = true
+		SPEED = walkspeed
+	elif direction == 0:
+		is_running = false
+		is_walking = false
 	
-	var idle_state = LimboState.new().named("idle").call_on_enter(idle_start).call_on_update(idle_process)
-	var walk_state = LimboState.new().named("walk").call_on_enter(walk_start).call_on_update(walk_process)
-	var run_state = LimboState.new().named("run").call_on_enter(run_start).call_on_update(run_process)
-	var jump_state = LimboState.new().named("jump").call_on_enter(jump_start).call_on_update(jump_process)
-	var fall_state = LimboState.new().named("fall").call_on_enter(fall_start).call_on_update(fall_process)
-	var attack_state = LimboState.new().named("attack").call_on_enter(attack_start).call_on_update(attack_process)
-	var crouch_state = LimboState.new().named("crouch").call_on_enter(crouch_start).call_on_update(crouch_process)
-	var heal_state = LimboState.new().named("heal").call_on_enter(heal_start).call_on_update(heal_process)
-	var block_state = LimboState.new().named("block").call_on_enter(block_start).call_on_update(block_process)
-	var die_state = LimboState.new().named("die").call_on_enter(die_start).call_on_update(die_process)
+	# Add the gravity.
+	if not is_on_floor():
+		velocity.y += gravity * delta
 	
-	main_sm.add_child(idle_state)
-	main_sm.add_child(walk_state)
-	main_sm.add_child(run_state)
-	main_sm.add_child(jump_state)
-	main_sm.add_child(fall_state)
-	main_sm.add_child(attack_state)
-	main_sm.add_child(crouch_state)
-	main_sm.add_child(heal_state)
-	main_sm.add_child(block_state)
-	main_sm.add_child(die_state)
-	
-	main_sm.initial_state = idle_state
-	
-	main_sm.add_transition(main_sm.ANYSTATE, idle_state, &"state_ended")
-	main_sm.add_transition(main_sm.ANYSTATE, walk_state, &"go_walk")
-	main_sm.add_transition(main_sm.ANYSTATE, run_state, &"go_run")
-	main_sm.add_transition(main_sm.ANYSTATE, jump_state, &"go_jump")
-	main_sm.add_transition(main_sm.ANYSTATE, fall_state, &"go_fall")
-	main_sm.add_transition(main_sm.ANYSTATE, attack_state, &"go_attack")
-	main_sm.add_transition(main_sm.ANYSTATE, crouch_state, &"go_crouch")
-	main_sm.add_transition(main_sm.ANYSTATE, heal_state, &"go_heal")
-	main_sm.add_transition(main_sm.ANYSTATE, block_state, &"go_block")
-	main_sm.add_transition(main_sm.ANYSTATE, die_state, &"go_die")
-	
-	main_sm.initialize(self)
-	main_sm.set_active(true)
-
-# IDLE
-
-func idle_start():
-	if !can_control: return
-	animator.play("idle")
-
-func idle_process(_delta: float):
-	if !can_control: return
-	if currenthealth < 40:
-		animator.play("damaged_idle")
-	if dir != 0:
-		if Input.is_action_pressed("run"):
-			main_sm.dispatch(&"go_run")
-		else:
-			main_sm.dispatch(&"go_walk")
-	if currenthealth <= 0:
-		main_sm.dispatch(&"go_die")
-
-# WALK
-
-func walk_start():
-	if !can_control: return
-	animator.play("walk")
-
-func walk_process(_delta: float):
-	if !can_control: return
-	if Input.is_action_pressed("run"):
-		main_sm.dispatch(&"go_run")
-	elif dir == 0:
-		main_sm.dispatch(&"state_ended")
-	if currenthealth <= 0:
-		main_sm.dispatch(&"go_die")
-
-# RUN
-
-func run_start():
-	if !can_control: return
-	animator.play("run")
-
-func run_process(_delta: float):
-	if !can_control: return
-	if Input.is_action_just_released("run") or dir == 0:
-		if dir != 0:
-			main_sm.dispatch(&"go_walk")
-		elif dir == 0:
-			main_sm.dispatch(&"state_ended")
-	if currenthealth <= 0:
-		main_sm.dispatch(&"go_die")
-
-# JUMP
-
-func jump_start():
-	if !can_control: return
-	animator.play("jump")
-	is_jumping = true
-	velocity.y = Jump_Velocity
-
-func jump_process(_delta: float):
-	if !can_control: return
-	if Input.is_action_just_released("jump"):
-		velocity.y *= 0.4
-	if is_on_floor():
-		is_jumping = false
-		if Input.is_action_pressed("run") and dir != 0:
-			main_sm.dispatch(&"go_run")
-		elif dir != 0:
-			main_sm.dispatch(&"go_walk")
-		else:
-			main_sm.dispatch(&"state_ended")
-		if currenthealth <= 0:
-			main_sm.dispatch(&"go_die")
-
-# FALL
-
-func fall_start():
-	if !can_control: return
-	animator.play("fall")
-	is_falling = true
-
-func fall_process(_delta: float):
-	if !can_control: return
+	#Variables Changing
 	if is_on_floor():
 		is_falling = false
-		is_jumping = false
-		if Input.is_action_pressed("run") and dir != 0:
-			is_falling = false
-			main_sm.dispatch(&"go_run")
-		elif dir != 0:
-			is_falling = false
-			main_sm.dispatch(&"go_walk")
-		else:
-			is_falling = false
-			main_sm.dispatch(&"state_ended")
-		if currenthealth <= 0:
-			is_falling = false
-			main_sm.dispatch(&"go_die")
-
-# ATTACK
-
-func attack_start():
-	if !can_control: return
-	is_attacking = true
-	attack_cooldown.start()
-	combo_timer.start()
-	if combo_state == 0:
-		animator.play("attack 1")
-	elif combo_state == 1:
-		animator.play("attack 2")
-	elif combo_state == 2:
-		animator.play("attack 3")
-	can_attack = false
-
-func attack_process(_delta: float):
-	if !can_control: return
-	if animator.is_playing(): return
-	if combo_state == 0:
-		combo_state = 1
-	elif combo_state == 1:
-		combo_state = 2
-	elif combo_state == 2:
-		combo_state = 0
-	if Input.is_action_pressed("run") and dir != 0:
-		is_attacking = false
-		main_sm.dispatch(&"go_run")
-	elif dir != 0:
-		is_attacking = false
-		main_sm.dispatch(&"go_walk")
+	
+	if health <= 0:
+		is_dead = true
+	
+	if Input.is_action_pressed("crouch") and !is_falling and !is_blocking and !is_jumping and is_on_floor()  and !is_healing:
+		is_crouching = true
+		collision.shape = CROUTCH
+		collision.position.y = 4
 	else:
-		is_attacking = false
-		main_sm.dispatch(&"state_ended")
-	if currenthealth <= 0:
-		main_sm.dispatch(&"go_die")
-
-# CROUCH
-
-func crouch_start():
-	if !can_control: return
-	is_crouching = true
-	collision.shape = CROUTCH
-	collision.position.y = 4.5
-	animator.play("crouch")
-
-func crouch_process(_delta: float):
-	if !can_control: return
-	if Input.is_action_pressed("crouch"):
-		return
-	if Input.is_action_just_released("crouch"):
+		is_crouching = false
 		collision.shape = IDLE
 		collision.position.y = 0
-	if !is_falling:
-		if Input.is_action_pressed("run") and dir != 0:
-			is_crouching = false
-			main_sm.dispatch(&"go_run")
-		elif dir != 0:
-			is_crouching = false
-			main_sm.dispatch(&"go_walk")
-		else:
-			is_crouching = false
-			main_sm.dispatch(&"state_ended")
-		if currenthealth <= 0:
-			main_sm.dispatch(&"go_die")
-
-# HEAL
-
-func heal_start():
-	if !can_control: return
-	animator.play("heal")
-	is_healing = true
-	currenthealth = min(currenthealth + 30, 100)
-	HealthBottles.health_bottles -= 1
-
-func heal_process(_delta: float):
-	if !can_control: return
-	if animator.is_playing(): return
-	if Input.is_action_just_released("run"):
-		if dir != 0:
-			is_healing = false
-			main_sm.dispatch(&"go_walk")
-		else:
-			is_healing = false
-			main_sm.dispatch(&"go_walk")
-	elif dir == 0:
-		is_healing = false
-		main_sm.dispatch(&"state_ended")
-	if currenthealth <= 0:
-		main_sm.dispatch(&"go_die")
-
-# BLOCK
-
-func block_start():
-	if !can_control: return
-	animator.play("block")
-	is_blocking = true
-
-func block_process(_delta: float):
-	if !can_control: return
-	if animator.is_playing(): return
-	if Input.is_action_pressed("run") and dir != 0:
-		is_blocking = false
-		main_sm.dispatch(&"go_run")
-	elif dir != 0:
-		is_blocking = false
-		main_sm.dispatch(&"go_walk")
-	else:
-		is_blocking = false
-		main_sm.dispatch(&"state_ended")
-	if currenthealth <= 0:
-		main_sm.dispatch(&"go_die")
-
-# DIE
-
-func die_start():
-	animator.play("die")
 	
-func die_process(_delta: float):
-	if is_reloading: return
-	is_reloading = true
-	await get_tree().create_timer(2).timeout
+	# Handle jump.
+	if Input.is_action_just_pressed("jump") and is_on_floor() and !is_crouching and !is_blocking and !is_healing:
+		velocity.y = JUMP_VELOCITY
+		is_jumping = true
+	elif velocity.y > 0:
+		is_jumping = false
+	
+	if velocity.y > 0 and !is_on_floor():
+		is_falling = true
+	
+	#Move Logic
+	if direction:
+		velocity.x = direction * SPEED * delta
+	else:
+		velocity.x = move_toward(velocity.x, 0, SPEED * delta * 0.1)
+		
+	#If Died
+	if is_dead:
+		dead()
+		
+	if !is_crouching and !is_healing and !is_attacking and !is_blocking:
+		move_and_slide()
+
+func anims():
+	if !is_dead:
+		if is_healing:
+			animations.play("heal")
+			await get_tree().create_timer(1.1).timeout
+			is_healing = false
+		elif is_blocking:
+			animations.play("block")
+			await get_tree().create_timer(0.83).timeout
+			is_blocking = false
+		elif is_crouching:
+			animations.play("crouch")
+		elif is_jumping:
+			animations.play("jump")
+		elif is_falling:
+			animations.play("fall")
+		elif is_running:
+			animations.play("run")
+		elif is_walking:
+			animations.play("walk")
+		else:
+			if health < 40:
+				animations.play("damaged_idle")
+			else:
+				animations.play("idle")
+
+func attack_anims():
+	if is_attacking:
+		if which_att_state == AttackStates.ATT1:
+			animations.play("attack 1")
+			await get_tree().create_timer(0.4).timeout
+			which_att_state = AttackStates.ATT2
+		elif which_att_state == AttackStates.ATT2:
+			animations.play("attack 2")
+			await get_tree().create_timer(0.44).timeout
+			which_att_state = AttackStates.ATT3
+		elif which_att_state == AttackStates.ATT3:
+			animations.play("attack 3")
+			await get_tree().create_timer(0.7).timeout
+			which_att_state = AttackStates.ATT1
+		elif which_att_state == AttackStates.CROUCH:
+			animations.play("crouch attack")
+			await get_tree().create_timer(0.7).timeout
+		attack_cooldown.start()
+		combo_reset.start()
+		is_attacking = false
+
+func facing_dir():
+	if !is_healing and !is_attacking and !is_dead:
+		if direction < 0:
+			animations.flip_h = true
+			collision.position.x = -5
+		if direction > 0:
+			animations.flip_h = false
+			collision.position.x = 0
+
+func healthset():
+	if health > 100:
+		health = 100
+	if health < 0:
+		health = 0
+
+func dead():
+	collision.disabled = true
+	animations.play("die")
+	await get_tree().create_timer(3).timeout
 	get_tree().reload_current_scene()
 
-# END
+func _on_attack_cooldown_timeout() -> void:
+	can_attack = true
+
+func _on_combo_reset_timeout() -> void:
+	which_att_state = AttackStates.ATT1
