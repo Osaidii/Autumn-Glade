@@ -11,13 +11,14 @@ config_version=5
 [application]
 
 config/name="Autumn Glade"
-run/main_scene="res://scenes/game.tscn"
+run/main_scene="uid://civqrypa3sm2q"
 config/features=PackedStringArray("4.4", "Forward Plus")
-boot_splash/bg_color=Color(0.963649, 0.645302, 0.313051, 1)
+boot_splash/bg_color=Color(0, 0, 0, 1)
 
 [autoload]
 
 HealthBottles="*res://scripts/health_bottles.gd"
+SceneTransition="*res://scenes/scene_transition.tscn"
 
 [display]
 

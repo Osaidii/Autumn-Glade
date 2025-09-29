@@ -5,7 +5,7 @@ var SPEED = 4000
 @export var gravity = 800
 @export var walkspeed = 4000
 @export var runspeed = 8000
-@export var JUMP_VELOCITY = -230.0
+@export var JUMP_VELOCITY = -270.0
 @export var health = 100
 
 var direction: int
@@ -28,7 +28,6 @@ var is_crouching = false
 var is_dead = false
 var is_healing = false
 var is_attacking = false
-var is_blocking = false
 var can_attack = true
 
 enum AttackStates {ATT1, ATT2, ATT3, CROUCH}
@@ -37,13 +36,11 @@ var which_att_state = AttackStates.ATT1
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("damage_temp"):
 		health -= 30
-	if event.is_action_pressed("heal") and !is_crouching and !is_falling and !is_blocking and !is_jumping and HealthBottles.health_bottles > 0 and health < 100:
+	if event.is_action_pressed("heal") and !is_crouching and !is_falling and !is_jumping and HealthBottles.health_bottles > 0 and health < 100:
 		is_healing = true
 		health += 30
 		HealthBottles.health_bottles -= 1
-	if event.is_action_pressed("block") and !is_crouching and !is_falling and !is_jumping:
-		is_blocking = true
-	if event.is_action_pressed("attack") and !is_jumping and !is_falling and !is_blocking and !is_healing and can_attack:
+	if event.is_action_pressed("attack") and !is_jumping and !is_falling and !is_healing and can_attack:
 		if is_attacking:
 			pass
 		else:
@@ -71,7 +68,6 @@ func _physics_process(delta: float) -> void:
 	#Handle Health Bottles
 	num_of_bottles.text = str(HealthBottles.health_bottles)
 	
-	
 	#Direction Set
 	direction = Input.get_action_strength("right") - Input.get_action_strength("left")
 	
@@ -85,10 +81,10 @@ func _physics_process(delta: float) -> void:
 	facing_dir()
 	
 	#Change Speed
-	if Input.is_action_pressed("run") and direction != 0 and !is_crouching and !is_blocking and !is_healing:
+	if Input.is_action_pressed("run") and direction != 0 and !is_crouching and !is_healing:
 		SPEED = runspeed
 		is_running = true
-	elif !Input.is_action_pressed("run") and direction != 0 and !is_blocking and !is_crouching and !is_healing:
+	elif !Input.is_action_pressed("run") and direction != 0 and !is_crouching and !is_healing:
 		is_running = false
 		is_walking = true
 		SPEED = walkspeed
@@ -107,7 +103,7 @@ func _physics_process(delta: float) -> void:
 	if health <= 0:
 		is_dead = true
 	
-	if Input.is_action_pressed("crouch") and !is_falling and !is_blocking and !is_jumping and is_on_floor()  and !is_healing:
+	if Input.is_action_pressed("crouch") and !is_falling and !is_jumping and is_on_floor()  and !is_healing:
 		is_crouching = true
 		collision.shape = CROUTCH
 		collision.position.y = 4
@@ -117,7 +113,7 @@ func _physics_process(delta: float) -> void:
 		collision.position.y = 0
 	
 	# Handle jump.
-	if Input.is_action_just_pressed("jump") and is_on_floor() and !is_crouching and !is_blocking and !is_healing:
+	if Input.is_action_just_pressed("jump") and is_on_floor() and !is_crouching and !is_healing:
 		velocity.y = JUMP_VELOCITY
 		is_jumping = true
 	elif velocity.y > 0:
@@ -130,13 +126,13 @@ func _physics_process(delta: float) -> void:
 	if direction:
 		velocity.x = direction * SPEED * delta
 	else:
-		velocity.x = move_toward(velocity.x, 0, SPEED * delta * 0.1)
+		velocity.x = move_toward(velocity.x, 0, SPEED * delta * 0.08)
 		
 	#If Died
 	if is_dead:
 		dead()
 		
-	if !is_crouching and !is_healing and !is_attacking and !is_blocking:
+	if !is_crouching and !is_healing and !is_attacking:
 		move_and_slide()
 
 func anims():
@@ -145,10 +141,6 @@ func anims():
 			animations.play("heal")
 			await get_tree().create_timer(1.1).timeout
 			is_healing = false
-		elif is_blocking:
-			animations.play("block")
-			await get_tree().create_timer(0.83).timeout
-			is_blocking = false
 		elif is_crouching:
 			animations.play("crouch")
 		elif is_jumping:
