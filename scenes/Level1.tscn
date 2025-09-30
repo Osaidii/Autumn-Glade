@@ -834,20 +834,6 @@ sources/0 = SubResource("TileSetAtlasSource_modao")
 position = Vector2(-645, -47)
 scale = Vector2(0.9, 0.9)
 
-[node name="Potions" type="Node" parent="."]
-
-[node name="Potion" parent="Potions" instance=ExtResource("2_76388")]
-position = Vector2(-151, 68)
-
-[node name="Potion2" parent="Potions" instance=ExtResource("2_76388")]
-position = Vector2(-167, 68)
-
-[node name="Potion3" parent="Potions" instance=ExtResource("2_76388")]
-position = Vector2(-182, 68)
-
-[node name="Potion4" parent="Potions" instance=ExtResource("2_76388")]
-position = Vector2(-199, 68)
-
 [node name="danger" type="Area2D" parent="."]
 position = Vector2(-344, -14)
 collision_layer = 0
@@ -870,5 +856,14 @@ layer_0/tile_data = PackedInt32Array(65533, 262144, 0, 65534, 65536, 0, 65535, 1
 
 [node name="CharacterBody2D" parent="." instance=ExtResource("5_n34uq")]
 position = Vector2(-441, 61)
+
+[node name="Potion" parent="." instance=ExtResource("2_76388")]
+position = Vector2(-198, 63)
+
+[node name="Potion2" parent="." instance=ExtResource("2_76388")]
+position = Vector2(-177, 61)
+
+[node name="Potion3" parent="." instance=ExtResource("2_76388")]
+position = Vector2(-46, 12)
 
 [connection signal="body_entered" from="danger" to="danger" method="_on_body_entered"]

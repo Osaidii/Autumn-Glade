@@ -18,7 +18,7 @@ boot_splash/bg_color=Color(0, 0, 0, 1)
 [autoload]
 
 HealthBottles="*res://scripts/health_bottles.gd"
-SceneTransition="*res://scenes/scene_transition.tscn"
+Scenetransition="*res://ui/scene_transition.tscn"
 
 [display]
 
