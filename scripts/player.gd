@@ -1,5 +1,5 @@
-extends CharacterBody2D
 class_name Player
+extends CharacterBody2D
 
 var SPEED = 4000
 @export var gravity = 800
@@ -174,6 +174,7 @@ func attack_anims():
 		elif which_att_state == AttackStates.CROUCH:
 			animations.play("crouch attack")
 			await get_tree().create_timer(0.7).timeout
+			which_att_state == AttackStates.ATT1
 		attack_cooldown.start()
 		combo_reset.start()
 		is_attacking = false
@@ -196,8 +197,10 @@ func healthset():
 func dead():
 	collision.disabled = true
 	animations.play("die")
-	await get_tree().create_timer(3).timeout
+	Scenetransition.change_scene()
+	await get_tree().create_timer(1.5).timeout
 	get_tree().reload_current_scene()
+	Scenetransition.end_transition()
 
 func _on_attack_cooldown_timeout() -> void:
 	can_attack = true

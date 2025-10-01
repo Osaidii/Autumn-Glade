@@ -1,0 +1,162 @@
+[gd_scene load_steps=8 format=3 uid="uid://4ag1mvkno868"]
+
+[ext_resource type="Script" uid="uid://bkboapeq3x6sa" path="res://scripts/pause_menu.gd" id="1_ejwgg"]
+[ext_resource type="Shader" uid="uid://bkfqxxvh8odcu" path="res://shader/pause_menu.gdshader" id="2_avurv"]
+[ext_resource type="FontFile" uid="uid://drmmdlxyklae1" path="res://assets/ARCADECLASSIC.TTF" id="2_fob5h"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_npydk"]
+shader = ExtResource("2_avurv")
+shader_parameter/lod = 0.0
+
+[sub_resource type="Animation" id="Animation_6ap7o"]
+resource_name = "blur"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:material:shader_parameter/lod")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 0.994]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../PanelContainer:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_j3kxr"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:material:shader_parameter/lod")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../PanelContainer:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_vovkw"]
+_data = {
+&"RESET": SubResource("Animation_j3kxr"),
+&"blur": SubResource("Animation_6ap7o")
+}
+
+[node name="Pause Menu" type="Control"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ejwgg")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_npydk")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.25098, 0.25098, 0.25098, 0.705882)
+
+[node name="Label" type="Label" parent="ColorRect"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -165.0
+offset_top = 281.0
+offset_right = 165.0
+offset_bottom = 383.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("2_fob5h")
+theme_override_font_sizes/font_size = 100
+text = "Paused"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../ColorRect")
+libraries = {
+&"": SubResource("AnimationLibrary_vovkw")
+}
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -165.0
+offset_top = -157.0
+offset_right = 158.0
+offset_bottom = 154.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+offset_left = 849.0
+offset_top = 429.0
+offset_right = 1071.0
+offset_bottom = 694.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 8
+
+[node name="Resume" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Resume"
+
+[node name="Restart" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Restart"
+
+[node name="Save" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Save"
+
+[node name="Load" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Load"
+
+[node name="Options" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Options"
+
+[node name="Quit" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Quit"
+
+[connection signal="pressed" from="VBoxContainer/Resume" to="." method="_on_resume_pressed"]
+[connection signal="pressed" from="VBoxContainer/Quit" to="." method="_on_quit_pressed"]

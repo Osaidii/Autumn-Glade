@@ -1,10 +1,11 @@
-[gd_scene load_steps=134 format=3 uid="uid://civqrypa3sm2q"]
+[gd_scene load_steps=137 format=3 uid="uid://civqrypa3sm2q"]
 
-[ext_resource type="Script" uid="uid://jjkh2v8awu2n" path="res://scripts/main_menu (2).gd" id="1_rmr83"]
+[ext_resource type="Script" uid="uid://jjkh2v8awu2n" path="res://scripts/main_menu.gd" id="1_rmr83"]
 [ext_resource type="Texture2D" uid="uid://bkrbxa33pvlvq" path="res://assets/dUGRib.png" id="2_0dkrt"]
 [ext_resource type="Theme" uid="uid://bgv703gohcegx" path="res://themes/button_theme.tres" id="3_8uxxo"]
 [ext_resource type="FontFile" uid="uid://dc1goqjwtktj2" path="res://assets/RubikSprayPaint-Regular.ttf" id="3_wk0pr"]
 [ext_resource type="Texture2D" uid="uid://dvlkao6v72gv2" path="res://assets/character/Character Animations.png" id="4_rmr83"]
+[ext_resource type="Texture2D" uid="uid://dsv1a647hq8y1" path="res://assets/ELR_FallLeaf.png" id="6_ei257"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_dqkch"]
 atlas = ExtResource("4_rmr83")
@@ -1235,6 +1236,25 @@ animations = [{
 "speed": 9.0
 }]
 
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_p8ri8"]
+particles_animation = true
+particles_anim_h_frames = 5
+particles_anim_v_frames = 1
+particles_anim_loop = true
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_8uxxo"]
+particle_flag_disable_z = true
+emission_shape_scale = Vector3(1300, 700, 1)
+emission_shape = 3
+emission_box_extents = Vector3(1, 1, 1)
+spread = 20.0
+initial_velocity_min = 44.83
+initial_velocity_max = 74.83
+gravity = Vector3(0, 10, 0)
+scale_min = 1.5
+scale_max = 2.5
+anim_offset_max = 1.0
+
 [node name="Control" type="Control"]
 layout_mode = 3
 anchors_preset = 15
@@ -1307,6 +1327,15 @@ scale = Vector2(6.00664, 6.00664)
 sprite_frames = SubResource("SpriteFrames_ei257")
 animation = &"idle"
 autoplay = "idle"
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+material = SubResource("CanvasItemMaterial_p8ri8")
+position = Vector2(477, 115)
+amount = 700
+texture = ExtResource("6_ei257")
+lifetime = 50.0
+fixed_fps = 60
+process_material = SubResource("ParticleProcessMaterial_8uxxo")
 
 [connection signal="pressed" from="Play" to="." method="play"]
 [connection signal="pressed" from="Quit" to="." method="quit"]

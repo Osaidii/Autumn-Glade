@@ -1,13 +1,10 @@
-[gd_scene load_steps=16 format=3 uid="uid://1ffj4pyi4mtr"]
+[gd_scene load_steps=9 format=3 uid="uid://1ffj4pyi4mtr"]
 
 [ext_resource type="PackedScene" uid="uid://bh60e7xm06k84" path="res://scenes/theif_enemy.tscn" id="1_lrl65"]
 [ext_resource type="PackedScene" uid="uid://68qwpubtdomh" path="res://scenes/health_bottle.tscn" id="2_76388"]
 [ext_resource type="Script" uid="uid://bxp64knk6fkrh" path="res://scripts/danger zone.gd" id="3_svatc"]
 [ext_resource type="Texture2D" uid="uid://dlq0apcfj2pk" path="res://assets/autumn woods/oak_woods_tileset.png" id="4_dw26h"]
 [ext_resource type="PackedScene" uid="uid://bwtd6vqtcsd3o" path="res://scenes/player.tscn" id="5_n34uq"]
-[ext_resource type="Script" uid="uid://bkboapeq3x6sa" path="res://scripts/pause_menu.gd" id="6_ecr63"]
-[ext_resource type="Shader" uid="uid://bkfqxxvh8odcu" path="res://shader/pause_menu.gdshader" id="7_n34uq"]
-[ext_resource type="FontFile" uid="uid://drmmdlxyklae1" path="res://assets/ARCADECLASSIC.TTF" id="8_kbo48"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lbhrr"]
 size = Vector2(14864.2, 2516.03)
@@ -829,71 +826,6 @@ physics_layer_1/collision_layer = 2
 physics_layer_1/collision_mask = 2
 sources/0 = SubResource("TileSetAtlasSource_modao")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_npydk"]
-shader = ExtResource("7_n34uq")
-shader_parameter/lod = 0.0
-
-[sub_resource type="Animation" id="Animation_6ap7o"]
-resource_name = "blur"
-length = 0.3
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:material:shader_parameter/lod")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.3),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [0.0, 0.994]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("../PanelContainer:modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.3),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
-}
-
-[sub_resource type="Animation" id="Animation_j3kxr"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:material:shader_parameter/lod")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("../PanelContainer:modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 0)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_vovkw"]
-_data = {
-&"RESET": SubResource("Animation_j3kxr"),
-&"blur": SubResource("Animation_6ap7o")
-}
-
 [node name="Level 1" type="Node2D"]
 
 [node name="Enemies" type="Node" parent="."]
@@ -934,99 +866,4 @@ position = Vector2(-177, 61)
 [node name="Potion3" parent="." instance=ExtResource("2_76388")]
 position = Vector2(-46, 12)
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-process_mode = 2
-
-[node name="Pause Menu" type="Control" parent="CanvasLayer"]
-process_mode = 3
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-script = ExtResource("6_ecr63")
-
-[node name="ColorRect" type="ColorRect" parent="CanvasLayer/Pause Menu"]
-material = SubResource("ShaderMaterial_npydk")
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.25098, 0.25098, 0.25098, 0.705882)
-
-[node name="Label" type="Label" parent="CanvasLayer/Pause Menu/ColorRect"]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -165.0
-offset_top = 281.0
-offset_right = 165.0
-offset_bottom = 383.0
-grow_horizontal = 2
-theme_override_fonts/font = ExtResource("8_kbo48")
-theme_override_font_sizes/font_size = 100
-text = "Paused"
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer/Pause Menu"]
-process_mode = 2
-root_node = NodePath("../ColorRect")
-libraries = {
-&"": SubResource("AnimationLibrary_vovkw")
-}
-
-[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/Pause Menu"]
-modulate = Color(1, 1, 1, 0)
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -165.0
-offset_top = -157.0
-offset_right = 158.0
-offset_bottom = 154.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Pause Menu"]
-layout_mode = 2
-offset_left = 849.0
-offset_top = 429.0
-offset_right = 1071.0
-offset_bottom = 694.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/separation = 8
-
-[node name="Resume" type="Button" parent="CanvasLayer/Pause Menu/VBoxContainer"]
-layout_mode = 2
-text = "Resume"
-
-[node name="Restart" type="Button" parent="CanvasLayer/Pause Menu/VBoxContainer"]
-layout_mode = 2
-text = "Restart"
-
-[node name="Save" type="Button" parent="CanvasLayer/Pause Menu/VBoxContainer"]
-layout_mode = 2
-text = "Save"
-
-[node name="Load" type="Button" parent="CanvasLayer/Pause Menu/VBoxContainer"]
-layout_mode = 2
-text = "Load"
-
-[node name="Options" type="Button" parent="CanvasLayer/Pause Menu/VBoxContainer"]
-layout_mode = 2
-text = "Options"
-
-[node name="Quit" type="Button" parent="CanvasLayer/Pause Menu/VBoxContainer"]
-layout_mode = 2
-text = "Quit"
-
 [connection signal="body_entered" from="danger" to="danger" method="_on_body_entered"]
-[connection signal="pressed" from="CanvasLayer/Pause Menu/VBoxContainer/Resume" to="CanvasLayer/Pause Menu" method="_on_resume_pressed"]
-[connection signal="pressed" from="CanvasLayer/Pause Menu/VBoxContainer/Quit" to="CanvasLayer/Pause Menu" method="_on_quit_pressed"]
