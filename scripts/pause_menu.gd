@@ -39,3 +39,9 @@ func _on_quit_pressed() -> void:
 	Scenetransition.change_scene()
 	await get_tree().create_timer(1.5).timeout
 	get_tree().quit()
+
+
+func _on_main_menu_pressed() -> void:
+	Scenetransition.change_scene()
+	await get_tree().create_timer(1).timeout
+	get_tree().change_scene_to_file("res://ui/main_menu.tscn")

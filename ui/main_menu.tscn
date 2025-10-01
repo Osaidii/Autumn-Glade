@@ -1,4 +1,4 @@
-[gd_scene load_steps=137 format=3 uid="uid://civqrypa3sm2q"]
+[gd_scene load_steps=139 format=3 uid="uid://civqrypa3sm2q"]
 
 [ext_resource type="Script" uid="uid://jjkh2v8awu2n" path="res://scripts/main_menu.gd" id="1_rmr83"]
 [ext_resource type="Texture2D" uid="uid://bkrbxa33pvlvq" path="res://assets/dUGRib.png" id="2_0dkrt"]
@@ -1242,17 +1242,26 @@ particles_anim_h_frames = 5
 particles_anim_v_frames = 1
 particles_anim_loop = true
 
+[sub_resource type="Gradient" id="Gradient_ei257"]
+offsets = PackedFloat32Array(0, 0.169761, 0.843501, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_p8ri8"]
+gradient = SubResource("Gradient_ei257")
+
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_8uxxo"]
-particle_flag_disable_z = true
 emission_shape_scale = Vector3(1300, 700, 1)
 emission_shape = 3
 emission_box_extents = Vector3(1, 1, 1)
 spread = 20.0
-initial_velocity_min = 44.83
-initial_velocity_max = 74.83
-gravity = Vector3(0, 10, 0)
-scale_min = 1.5
-scale_max = 2.5
+initial_velocity_min = 15.0
+initial_velocity_max = 40.0
+angular_velocity_min = -101.81
+angular_velocity_max = 109.86
+gravity = Vector3(0, 30, 0)
+scale_min = 2.0
+scale_max = 4.0
+color_ramp = SubResource("GradientTexture1D_p8ri8")
 anim_offset_max = 1.0
 
 [node name="Control" type="Control"]
@@ -1285,18 +1294,35 @@ theme = ExtResource("3_8uxxo")
 theme_override_font_sizes/font_size = 97
 text = "Play"
 
+[node name="Settings" type="Button" parent="."]
+layout_mode = 0
+offset_left = 683.0
+offset_top = 629.0
+offset_right = 1210.0
+offset_bottom = 716.0
+theme = ExtResource("3_8uxxo")
+theme_override_font_sizes/font_size = 39
+text = "Settings"
+
 [node name="Quit" type="Button" parent="."]
 unique_name_in_owner = true
 layout_mode = 2
 offset_left = 755.0
-offset_top = 629.0
+offset_top = 727.0
 offset_right = 1157.0
-offset_bottom = 692.0
+offset_bottom = 790.0
 theme = ExtResource("3_8uxxo")
 theme_override_font_sizes/font_size = 26
 text = "Quit"
 
-[node name="Label" type="Label" parent="."]
+[node name="Animations" type="AnimatedSprite2D" parent="."]
+position = Vector2(294, 843)
+scale = Vector2(6.00664, 6.00664)
+sprite_frames = SubResource("SpriteFrames_ei257")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="Title" type="Label" parent="."]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.115885
@@ -1321,21 +1347,15 @@ text = "Autumn Glade"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Animations" type="AnimatedSprite2D" parent="."]
-position = Vector2(294, 843)
-scale = Vector2(6.00664, 6.00664)
-sprite_frames = SubResource("SpriteFrames_ei257")
-animation = &"idle"
-autoplay = "idle"
-
 [node name="GPUParticles2D" type="GPUParticles2D" parent="."]
 material = SubResource("CanvasItemMaterial_p8ri8")
-position = Vector2(477, 115)
-amount = 700
+position = Vector2(625, 221)
+amount = 150
 texture = ExtResource("6_ei257")
-lifetime = 50.0
+lifetime = 3.0
 fixed_fps = 60
 process_material = SubResource("ParticleProcessMaterial_8uxxo")
 
 [connection signal="pressed" from="Play" to="." method="play"]
+[connection signal="pressed" from="Settings" to="." method="settings"]
 [connection signal="pressed" from="Quit" to="." method="quit"]

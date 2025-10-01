@@ -833,6 +833,33 @@ sources/0 = SubResource("TileSetAtlasSource_modao")
 shader = ExtResource("7_n34uq")
 shader_parameter/lod = 0.0
 
+[sub_resource type="Animation" id="Animation_j3kxr"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:material:shader_parameter/lod")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../PanelContainer:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
 [sub_resource type="Animation" id="Animation_6ap7o"]
 resource_name = "blur"
 length = 0.3
@@ -859,33 +886,6 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
-}
-
-[sub_resource type="Animation" id="Animation_j3kxr"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:material:shader_parameter/lod")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("../PanelContainer:modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 0)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_vovkw"]
@@ -989,7 +989,7 @@ anchor_bottom = 0.5
 offset_left = -165.0
 offset_top = -157.0
 offset_right = 158.0
-offset_bottom = 154.0
+offset_bottom = 202.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -1022,6 +1022,10 @@ text = "Load"
 [node name="Options" type="Button" parent="CanvasLayer/Pause Menu/VBoxContainer"]
 layout_mode = 2
 text = "Options"
+
+[node name="Main Menu" type="Button" parent="CanvasLayer/Pause Menu/VBoxContainer"]
+layout_mode = 2
+text = "Back to Main Menu"
 
 [node name="Quit" type="Button" parent="CanvasLayer/Pause Menu/VBoxContainer"]
 layout_mode = 2

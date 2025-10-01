@@ -11,5 +11,8 @@ func play():
 	Scenetransition.end_transition()
 
 func quit():
-	await get_tree().create_timer(1.5).timeout
+	await get_tree().create_timer(0.5).timeout
 	get_tree().quit()
+
+func settings():
+	pass # Replace with function body.
