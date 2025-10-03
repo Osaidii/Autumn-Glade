@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://cwlyiccgq71xe"]
+
+[ext_resource type="AudioStream" uid="uid://cg1kbfefb8uat" path="res://assets/field_theme_2.wav" id="1_tf816"]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer"]
+stream = ExtResource("1_tf816")
+volume_db = -20.0
+autoplay = true

@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://4ag1mvkno868"]
+[gd_scene load_steps=9 format=3 uid="uid://4ag1mvkno868"]
 
 [ext_resource type="Script" uid="uid://bkboapeq3x6sa" path="res://scripts/pause_menu.gd" id="1_ejwgg"]
 [ext_resource type="Shader" uid="uid://bkfqxxvh8odcu" path="res://shader/pause_menu.gdshader" id="2_avurv"]
 [ext_resource type="FontFile" uid="uid://drmmdlxyklae1" path="res://assets/ARCADECLASSIC.TTF" id="2_fob5h"]
+[ext_resource type="AudioStream" uid="uid://dfkh1d40utveg" path="res://assets/Modern7.mp3" id="4_avurv"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_npydk"]
 shader = ExtResource("2_avurv")
@@ -80,6 +81,7 @@ grow_vertical = 2
 script = ExtResource("1_ejwgg")
 
 [node name="ColorRect" type="ColorRect" parent="."]
+process_mode = 3
 material = SubResource("ShaderMaterial_npydk")
 layout_mode = 1
 anchors_preset = 15
@@ -90,6 +92,7 @@ grow_vertical = 2
 color = Color(0.25098, 0.25098, 0.25098, 0.705882)
 
 [node name="Label" type="Label" parent="ColorRect"]
+process_mode = 3
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -104,12 +107,14 @@ theme_override_font_sizes/font_size = 100
 text = "Paused"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+process_mode = 3
 root_node = NodePath("../ColorRect")
 libraries = {
 &"": SubResource("AnimationLibrary_vovkw")
 }
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
+process_mode = 3
 modulate = Color(1, 1, 1, 0)
 layout_mode = 1
 anchors_preset = 8
@@ -120,11 +125,12 @@ anchor_bottom = 0.5
 offset_left = -165.0
 offset_top = -157.0
 offset_right = 158.0
-offset_bottom = 154.0
+offset_bottom = 198.0
 grow_horizontal = 2
 grow_vertical = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
+process_mode = 3
 layout_mode = 2
 offset_left = 849.0
 offset_top = 429.0
@@ -135,33 +141,74 @@ grow_vertical = 2
 theme_override_constants/separation = 8
 
 [node name="Resume" type="Button" parent="VBoxContainer"]
+process_mode = 3
 layout_mode = 2
+focus_neighbor_bottom = NodePath("../Restart")
+focus_next = NodePath("../Restart")
 text = "Resume"
 
 [node name="Restart" type="Button" parent="VBoxContainer"]
+process_mode = 3
 layout_mode = 2
+focus_neighbor_top = NodePath("../Resume")
+focus_neighbor_bottom = NodePath("../Save")
+focus_next = NodePath("../Save")
+focus_previous = NodePath("../Resume")
 text = "Restart"
 
 [node name="Save" type="Button" parent="VBoxContainer"]
+process_mode = 3
 layout_mode = 2
+focus_neighbor_top = NodePath("../Restart")
+focus_neighbor_bottom = NodePath("../Load")
+focus_next = NodePath("../Load")
+focus_previous = NodePath("../Restart")
 text = "Save"
 
 [node name="Load" type="Button" parent="VBoxContainer"]
+process_mode = 3
 layout_mode = 2
+focus_neighbor_top = NodePath("../Save")
+focus_neighbor_bottom = NodePath("../Options")
+focus_next = NodePath("../Options")
+focus_previous = NodePath("../Save")
 text = "Load"
 
 [node name="Options" type="Button" parent="VBoxContainer"]
+process_mode = 3
 layout_mode = 2
+focus_neighbor_top = NodePath("../Load")
+focus_neighbor_bottom = NodePath("../Main Menu")
+focus_next = NodePath("../Main Menu")
+focus_previous = NodePath("../Load")
 text = "Options"
 
 [node name="Main Menu" type="Button" parent="VBoxContainer"]
+process_mode = 3
 layout_mode = 2
+focus_neighbor_top = NodePath("../Options")
+focus_neighbor_bottom = NodePath("../Quit")
+focus_next = NodePath("../Quit")
+focus_previous = NodePath("../Options")
 text = "Back to Main Menu"
 
 [node name="Quit" type="Button" parent="VBoxContainer"]
+process_mode = 3
 layout_mode = 2
+focus_neighbor_top = NodePath("../Main Menu")
+focus_previous = NodePath("../Main Menu")
 text = "Quit"
 
+[node name="Select" type="AudioStreamPlayer" parent="."]
+process_mode = 3
+stream = ExtResource("4_avurv")
+
+[connection signal="focus_exited" from="VBoxContainer/Resume" to="." method="_on_resume_focus_exited"]
 [connection signal="pressed" from="VBoxContainer/Resume" to="." method="_on_resume_pressed"]
-[connection signal="pressed" from="VBoxContainer/Main Menu" to="." method="_on_main_menu_pressed"]
+[connection signal="focus_entered" from="VBoxContainer/Restart" to="." method="_on_restart_focus_entered"]
+[connection signal="focus_entered" from="VBoxContainer/Save" to="." method="_on_save_focus_entered"]
+[connection signal="focus_entered" from="VBoxContainer/Load" to="." method="_on_load_focus_entered"]
+[connection signal="focus_entered" from="VBoxContainer/Options" to="." method="_on_options_focus_entered"]
+[connection signal="focus_entered" from="VBoxContainer/Main Menu" to="." method="_on_main_menu_focus_entered"]
+[connection signal="focus_entered" from="VBoxContainer/Quit" to="." method="_on_quit_focus_entered"]
 [connection signal="pressed" from="VBoxContainer/Quit" to="." method="_on_quit_pressed"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=139 format=3 uid="uid://civqrypa3sm2q"]
+[gd_scene load_steps=141 format=3 uid="uid://civqrypa3sm2q"]
 
 [ext_resource type="Script" uid="uid://jjkh2v8awu2n" path="res://scripts/main_menu.gd" id="1_rmr83"]
 [ext_resource type="Texture2D" uid="uid://bkrbxa33pvlvq" path="res://assets/dUGRib.png" id="2_0dkrt"]
@@ -6,6 +6,7 @@
 [ext_resource type="FontFile" uid="uid://dc1goqjwtktj2" path="res://assets/RubikSprayPaint-Regular.ttf" id="3_wk0pr"]
 [ext_resource type="Texture2D" uid="uid://dvlkao6v72gv2" path="res://assets/character/Character Animations.png" id="4_rmr83"]
 [ext_resource type="Texture2D" uid="uid://dsv1a647hq8y1" path="res://assets/ELR_FallLeaf.png" id="6_ei257"]
+[ext_resource type="AudioStream" uid="uid://dfkh1d40utveg" path="res://assets/Modern7.mp3" id="7_p8ri8"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_dqkch"]
 atlas = ExtResource("4_rmr83")
@@ -1264,6 +1265,17 @@ scale_max = 4.0
 color_ramp = SubResource("GradientTexture1D_p8ri8")
 anim_offset_max = 1.0
 
+[sub_resource type="Environment" id="Environment_ei257"]
+background_mode = 3
+glow_enabled = true
+glow_blend_mode = 1
+glow_hdr_threshold = 0.85
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.0
+adjustment_enabled = true
+adjustment_brightness = 1.22
+adjustment_saturation = 1.01
+
 [node name="Control" type="Control"]
 layout_mode = 3
 anchors_preset = 15
@@ -1290,6 +1302,8 @@ offset_top = 494.0
 offset_right = 1359.0
 offset_bottom = 618.0
 size_flags_vertical = 2
+focus_neighbor_bottom = NodePath("../Settings")
+focus_next = NodePath("../Settings")
 theme = ExtResource("3_8uxxo")
 theme_override_font_sizes/font_size = 97
 text = "Play"
@@ -1300,6 +1314,10 @@ offset_left = 683.0
 offset_top = 629.0
 offset_right = 1210.0
 offset_bottom = 716.0
+focus_neighbor_top = NodePath("../Play")
+focus_neighbor_bottom = NodePath("../Quit")
+focus_next = NodePath("../Quit")
+focus_previous = NodePath("../Play")
 theme = ExtResource("3_8uxxo")
 theme_override_font_sizes/font_size = 39
 text = "Settings"
@@ -1311,6 +1329,8 @@ offset_left = 755.0
 offset_top = 727.0
 offset_right = 1157.0
 offset_bottom = 790.0
+focus_neighbor_top = NodePath("../Settings")
+focus_previous = NodePath("../Settings")
 theme = ExtResource("3_8uxxo")
 theme_override_font_sizes/font_size = 26
 text = "Quit"
@@ -1356,6 +1376,15 @@ lifetime = 3.0
 fixed_fps = 60
 process_material = SubResource("ParticleProcessMaterial_8uxxo")
 
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_ei257")
+
+[node name="Select" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_p8ri8")
+
+[connection signal="focus_entered" from="Play" to="." method="_on_play_focus_entered"]
 [connection signal="pressed" from="Play" to="." method="play"]
+[connection signal="focus_entered" from="Settings" to="." method="_on_settings_focus_entered"]
 [connection signal="pressed" from="Settings" to="." method="settings"]
+[connection signal="focus_entered" from="Quit" to="." method="_on_quit_focus_entered"]
 [connection signal="pressed" from="Quit" to="." method="quit"]

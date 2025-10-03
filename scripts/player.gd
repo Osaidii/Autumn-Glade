@@ -62,6 +62,8 @@ func _physics_process(delta: float) -> void:
 	if is_dead: return
 	if is_attacking: return
 	
+	set_mouse()
+	
 	#Handle Health Bar
 	health_bar.change_health(health)
 	
@@ -178,6 +180,12 @@ func attack_anims():
 		attack_cooldown.start()
 		combo_reset.start()
 		is_attacking = false
+
+func set_mouse():
+	if scene_file_path == "res://scenes/Level1.tscn":
+		Input.MOUSE_MODE_CAPTURED
+	else:
+		Input.MOUSE_MODE_VISIBLE
 
 func facing_dir():
 	if !is_healing and !is_attacking and !is_dead:
