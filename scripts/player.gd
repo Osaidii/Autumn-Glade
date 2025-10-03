@@ -16,6 +16,7 @@ var direction: int
 @onready var num_of_bottles: Label = $"Game Screen/Label"
 @onready var attack_cooldown: Timer = $attack_cooldown
 @onready var combo_reset: Timer = $combo_reset
+@onready var coyote_time: Timer = $coyote_time
 
 const IDLE = preload("res://collisions/idle.tres")
 const CROUTCH = preload("res://collisions/croutch.tres")
@@ -29,6 +30,7 @@ var is_dead = false
 var is_healing = false
 var is_attacking = false
 var can_attack = true
+var was_on_floor = true
 
 enum AttackStates {ATT1, ATT2, ATT3, CROUCH}
 var which_att_state = AttackStates.ATT1
@@ -99,6 +101,8 @@ func _physics_process(delta: float) -> void:
 		velocity.y += gravity * delta
 	
 	#Variables Changing
+	var was_on_floor = is_on_floor()
+	
 	if is_on_floor():
 		is_falling = false
 	
@@ -115,9 +119,10 @@ func _physics_process(delta: float) -> void:
 		collision.position.y = 0
 	
 	# Handle jump.
-	if Input.is_action_just_pressed("jump") and is_on_floor() and !is_crouching and !is_healing:
-		velocity.y = JUMP_VELOCITY
-		is_jumping = true
+	if Input.is_action_just_pressed("jump") and !is_crouching and !is_healing:
+		if is_on_floor() or !coyote_time.is_stopped():
+			velocity.y = JUMP_VELOCITY
+			is_jumping = true
 	elif velocity.y > 0:
 		is_jumping = false
 	
@@ -136,6 +141,9 @@ func _physics_process(delta: float) -> void:
 		
 	if !is_crouching and !is_healing and !is_attacking:
 		move_and_slide()
+		
+		if was_on_floor and !is_on_floor():
+			coyote_time.start()
 
 func anims():
 	if !is_dead:
@@ -215,3 +223,6 @@ func _on_attack_cooldown_timeout() -> void:
 
 func _on_combo_reset_timeout() -> void:
 	which_att_state = AttackStates.ATT1
+
+func _on_coyote_time_timeout() -> void:
+	pass # Replace with function body.
