@@ -1,14 +1,16 @@
 class_name Player
 extends CharacterBody2D
 
-var SPEED = 4000
+@export var SPEED = 4000
 @export var gravity = 800
 @export var walkspeed = 4000
 @export var runspeed = 8000
 @export var JUMP_VELOCITY = -270.0
 @export var health = 100
+@export var can_control: bool = false
 
 var direction: int
+var anim = ""
 
 @onready var animations: AnimatedSprite2D = $Animations
 @onready var collision: CollisionShape2D = $Collision
@@ -60,6 +62,7 @@ func _ready():
 	HealthBottles.health_bottles = 0
 
 func _physics_process(delta: float) -> void:
+	if !can_control: return
 	#No Control if Dead
 	if is_dead: return
 	if is_attacking: return
@@ -79,7 +82,7 @@ func _physics_process(delta: float) -> void:
 	healthset()
 	
 	#Play Anims
-	anims()
+	anims(anim)
 	
 	#Change Direction
 	facing_dir()
@@ -145,8 +148,12 @@ func _physics_process(delta: float) -> void:
 		if was_on_floor and !is_on_floor():
 			coyote_time.start()
 
-func anims():
-	if !is_dead:
+func anims(anim):
+	if anim == "lying down":
+		animations.play("lying down")
+	if anim == "get up":
+		animations.play("get_up")
+	elif !is_dead:
 		if is_healing:
 			animations.play("heal")
 			await get_tree().create_timer(1.1).timeout
