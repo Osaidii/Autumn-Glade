@@ -40,10 +40,10 @@ var which_att_state = AttackStates.ATT1
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("damage_temp"):
 		health -= 30
-	if event.is_action_pressed("heal") and !is_crouching and !is_falling and !is_jumping and HealthBottles.health_bottles > 0 and health < 100:
+	if event.is_action_pressed("heal") and !is_crouching and !is_falling and !is_jumping and GlobalVariables.health_bottles > 0 and health < 100:
 		is_healing = true
 		health += 30
-		HealthBottles.health_bottles -= 1
+		GlobalVariables.health_bottles -= 1
 	if event.is_action_pressed("attack") and !is_jumping and !is_falling and !is_healing and can_attack:
 		if is_attacking:
 			pass
@@ -54,12 +54,17 @@ func _unhandled_input(event: InputEvent) -> void:
 			attack_anims()
 
 func _ready():
+	if GlobalVariables.at_checkpoint < 1:
+		$"../cutscenes".play("intro")
+	else:
+		$"../cutscenes".play("move_out_of_way")
+	self.global_position = GlobalVariables.spawn_pos
 	collision.disabled = false
 	collision.shape = IDLE
-	collision.position.x = 0
+	collision.position.x = 0	
 	collision.position.y = 0
 	is_dead = false
-	HealthBottles.health_bottles = 0
+	GlobalVariables.health_bottles = 0
 
 func _physics_process(delta: float) -> void:
 	if !can_control: return
@@ -73,7 +78,7 @@ func _physics_process(delta: float) -> void:
 	health_bar.change_health(health)
 	
 	#Handle Health Bottles
-	num_of_bottles.text = str(HealthBottles.health_bottles)
+	num_of_bottles.text = str(GlobalVariables.health_bottles)
 	
 	#Direction Set
 	direction = Input.get_action_strength("right") - Input.get_action_strength("left")
@@ -219,12 +224,17 @@ func healthset():
 		health = 0
 
 func dead():
+	$"../cutscenes".autoplay = false
+	$AnimationPlayer.autoplay = ""  
 	collision.disabled = true
 	animations.play("die")
 	Scenetransition.change_scene()
 	await get_tree().create_timer(1.5).timeout
 	get_tree().reload_current_scene()
 	Scenetransition.end_transition()
+
+func cutscene_alr_played():
+	GlobalVariables.cutscene_played = true
 
 func _on_attack_cooldown_timeout() -> void:
 	can_attack = true

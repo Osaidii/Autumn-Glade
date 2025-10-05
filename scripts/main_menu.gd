@@ -1,10 +1,9 @@
 extends Control
 
-@onready var animation_player: AnimationPlayer = $AnimationPlayer
+@onready var animations: AnimatedSprite2D = $Animations
 const LEVEL_1 = preload("res://scenes/Level1.tscn") as PackedScene
 @onready var timer: Timer = $Timer
 @onready var select: AudioStreamPlayer = $Select
-
 
 func _ready():
 	select.volume_db = -80
