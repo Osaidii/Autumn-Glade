@@ -175,6 +175,7 @@ func anims(anim):
 				animations.play("idle")
 
 func attack_anims():
+	if !can_control: return
 	if is_attacking:
 		if which_att_state == AttackStates.ATT1:
 			animations.play("attack 1")
