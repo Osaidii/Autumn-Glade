@@ -33,7 +33,6 @@ func _physics_process(delta: float) -> void:
 	change_direction()
 	move_and_slide()
 
-
 func chase_player():
 	timer.stop()
 	current_state = States.CHASE

@@ -1,4 +1,4 @@
-[gd_scene load_steps=167 format=4 uid="uid://1ffj4pyi4mtr"]
+[gd_scene load_steps=169 format=4 uid="uid://1ffj4pyi4mtr"]
 
 [ext_resource type="Script" uid="uid://c2f21013qxwle" path="res://scripts/player.gd" id="2_0xqs2"]
 [ext_resource type="Texture2D" uid="uid://dvlkao6v72gv2" path="res://assets/character/Character Animations.png" id="3_ipmer"]
@@ -13,9 +13,9 @@
 [ext_resource type="Texture2D" uid="uid://bit1dehe8ty3f" path="res://assets/autumn woods/background/background_layer_2.png" id="6_ecr63"]
 [ext_resource type="Texture2D" uid="uid://vtsy7mk0oyfr" path="res://assets/autumn woods/background/Untitl5234ed.png" id="6_n34uq"]
 [ext_resource type="Texture2D" uid="uid://bonhr0cxgtd5w" path="res://assets/healthbarProgress (1).png" id="7_i2gr7"]
-[ext_resource type="Texture2D" uid="uid://yqyg4h0v01ed" path="res://assets/autumn woods/background/background_layer_3.png" id="7_n34uq"]
 [ext_resource type="Script" uid="uid://sl5nxpcoqsd3" path="res://scripts/health_ui.gd" id="8_t46sy"]
 [ext_resource type="FontFile" uid="uid://clhk3d3yvekk1" path="res://assets/BoldPixels.ttf" id="10_av1gt"]
+[ext_resource type="Texture2D" uid="uid://cry1v2iabe3hi" path="res://assets/autumn woods/background/background_layer_31.png" id="16_i2gr7"]
 [ext_resource type="PackedScene" uid="uid://ddtihdb241ujt" path="res://scenes/barrier.tscn" id="17_r7dij"]
 [ext_resource type="Script" uid="uid://dlmkrdbcopgr1" path="res://scripts/checkpoint_manager.gd" id="18_2ouud"]
 [ext_resource type="PackedScene" uid="uid://c7x3pq78qc02a" path="res://scenes/respawn.tscn" id="19_i2gr7"]
@@ -3051,115 +3051,115 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("../../CharacterBody2D/Collision:position")
+tracks/2/path = NodePath("../../CharacterBody2D/Animations:position")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(0, 2)]
+"values": [Vector2(0, 0)]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("../../CharacterBody2D/Animations:position")
+tracks/3/path = NodePath("../../CharacterBody2D/Labels/cutscene 1:visible_ratio")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(0, 0)]
+"values": [1.0]
 }
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("../../CharacterBody2D/Labels/cutscene 1:visible_ratio")
+tracks/4/path = NodePath("../../CharacterBody2D/Labels/cutscene 2:visible_ratio")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [1.0]
+"values": [0.0]
 }
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("../../CharacterBody2D/Labels/cutscene 2:visible_ratio")
+tracks/5/path = NodePath("../../CanvasLayer2/ColorRect:position")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [0.0]
+"values": [Vector2(0, 0)]
 }
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("../../CanvasLayer2/ColorRect:position")
+tracks/6/path = NodePath("../../CanvasLayer2/ColorRect2:position")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(0, 0)]
+"values": [Vector2(3, 823)]
 }
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("../../CanvasLayer2/ColorRect2:position")
+tracks/7/path = NodePath("../../CanvasLayer2/ColorRect2:pivot_offset")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(3, 823)]
+"values": [Vector2(0, -823)]
 }
 tracks/8/type = "value"
 tracks/8/imported = false
 tracks/8/enabled = true
-tracks/8/path = NodePath("../../CanvasLayer2/ColorRect2:pivot_offset")
+tracks/8/path = NodePath("../../CharacterBody2D/Camera2D:offset")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(0, -823)]
+"values": [Vector2(0, 0)]
 }
 tracks/9/type = "value"
 tracks/9/imported = false
 tracks/9/enabled = true
-tracks/9/path = NodePath("../../CharacterBody2D/Camera2D:offset")
+tracks/9/path = NodePath("../../CharacterBody2D/Camera2D:zoom")
 tracks/9/interp = 1
 tracks/9/loop_wrap = true
 tracks/9/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(0, 0)]
+"values": [Vector2(4, 4)]
 }
 tracks/10/type = "value"
 tracks/10/imported = false
 tracks/10/enabled = true
-tracks/10/path = NodePath("../../CharacterBody2D/Camera2D:zoom")
+tracks/10/path = NodePath("../../CanvasLayer2/ColorRect:visible")
 tracks/10/interp = 1
 tracks/10/loop_wrap = true
 tracks/10/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(4, 4)]
+"update": 1,
+"values": [true]
 }
 tracks/11/type = "value"
 tracks/11/imported = false
 tracks/11/enabled = true
-tracks/11/path = NodePath("../../CanvasLayer2/ColorRect:visible")
+tracks/11/path = NodePath("../../CanvasLayer2/ColorRect2:visible")
 tracks/11/interp = 1
 tracks/11/loop_wrap = true
 tracks/11/keys = {
@@ -3171,19 +3171,31 @@ tracks/11/keys = {
 tracks/12/type = "value"
 tracks/12/imported = false
 tracks/12/enabled = true
-tracks/12/path = NodePath("../../CanvasLayer2/ColorRect2:visible")
+tracks/12/path = NodePath("../../CharacterBody2D/Move:visible_ratio")
 tracks/12/interp = 1
 tracks/12/loop_wrap = true
 tracks/12/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+tracks/13/type = "value"
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/path = NodePath("../../CharacterBody2D/Move:visible")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [true]
+"values": [false]
 }
 
 [sub_resource type="Animation" id="Animation_ecr63"]
 resource_name = "intro"
-length = 12.0
+length = 11.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -3191,7 +3203,7 @@ tracks/0/path = NodePath("../../CharacterBody2D:can_control")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 12),
+"times": PackedFloat32Array(0, 10),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [false, true]
@@ -3203,7 +3215,7 @@ tracks/1/path = NodePath("../../CharacterBody2D/Animations")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 9),
+"times": PackedFloat32Array(0, 9.16667),
 "transitions": PackedFloat32Array(1, 1),
 "values": [{
 "args": [&"lying down", 1.0, false],
@@ -3215,12 +3227,12 @@ tracks/1/keys = {
 }
 tracks/2/type = "value"
 tracks/2/imported = false
-tracks/2/enabled = false
+tracks/2/enabled = true
 tracks/2/path = NodePath("../../CharacterBody2D:position")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(10),
+"times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector2(-114, -14)]
@@ -3228,110 +3240,140 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("../../CharacterBody2D/Collision:position")
+tracks/3/path = NodePath("../../CharacterBody2D/Labels/cutscene 1:visible_ratio")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0, 2)]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("../../CharacterBody2D/Animations:position")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(10.1),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0, -3)]
-}
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("../../CharacterBody2D/Labels/cutscene 1:visible_ratio")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
 "times": PackedFloat32Array(0, 1.5, 1.525, 1.55, 1.575, 1.6, 1.625, 1.65, 1.675, 1.7, 1.725, 1.75, 1.775, 1.8, 3.9, 4.4),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 0,
 "values": [0.0, 0.0, 0.077, 0.154, 0.231, 0.31, 0.385, 0.462, 0.54, 0.616, 0.693, 0.85, 0.93, 1.0, 1.0, 0.0]
 }
-tracks/6/type = "value"
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/path = NodePath("../../CharacterBody2D/Labels/cutscene 2:visible_ratio")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/keys = {
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("../../CharacterBody2D/Labels/cutscene 2:visible_ratio")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
 "times": PackedFloat32Array(4.76667, 4.79167, 4.81667, 4.84167, 4.86667, 4.89167, 4.91667, 4.94167, 4.96667, 4.99167, 5.01667, 5.04167, 5.06667, 8.26667, 8.9),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 0,
 "values": [0.0, 0.077, 0.154, 0.231, 0.31, 0.385, 0.462, 0.54, 0.616, 0.693, 0.85, 0.93, 1.0, 1.0, 0.0]
 }
-tracks/7/type = "value"
-tracks/7/imported = false
-tracks/7/enabled = true
-tracks/7/path = NodePath("../../CanvasLayer2/ColorRect:position")
-tracks/7/interp = 1
-tracks/7/loop_wrap = true
-tracks/7/keys = {
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("../../CanvasLayer2/ColorRect:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
 "times": PackedFloat32Array(0, 8.75, 10),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [Vector2(0, 0), Vector2(0, 0), Vector2(0, -178)]
 }
-tracks/8/type = "value"
-tracks/8/imported = false
-tracks/8/enabled = true
-tracks/8/path = NodePath("../../CanvasLayer2/ColorRect2:position")
-tracks/8/interp = 1
-tracks/8/loop_wrap = true
-tracks/8/keys = {
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("../../CanvasLayer2/ColorRect2:position")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
 "times": PackedFloat32Array(0, 8.75, 10),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [Vector2(0, 851), Vector2(0, 851), Vector2(0, 1015)]
 }
-tracks/9/type = "value"
-tracks/9/imported = false
-tracks/9/enabled = true
-tracks/9/path = NodePath("../../CanvasLayer2/ColorRect2:pivot_offset")
-tracks/9/interp = 1
-tracks/9/loop_wrap = true
-tracks/9/keys = {
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("../../CanvasLayer2/ColorRect2:pivot_offset")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
 "times": PackedFloat32Array(0, 10),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Vector2(0, -823), Vector2(0, -1015)]
 }
-tracks/10/type = "value"
-tracks/10/imported = false
-tracks/10/enabled = true
-tracks/10/path = NodePath("../../CharacterBody2D/Camera2D:offset")
-tracks/10/interp = 1
-tracks/10/loop_wrap = true
-tracks/10/keys = {
-"times": PackedFloat32Array(-0.133333, 0.733333, 0.766667, 0.8, 0.833333, 0.866667, 0.9, 0.933333, 0.966667, 10),
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("../../CharacterBody2D/Camera2D:offset")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(-0.233333, 0.733333, 0.766667, 0.8, 0.833333, 0.866667, 0.9, 0.933333, 0.966667, 10),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 0,
 "values": [Vector2(0, -75), Vector2(0, -60), Vector2(0, -52), Vector2(0, -45), Vector2(0, -39), Vector2(0, -34), Vector2(0, -30), Vector2(0, -27), Vector2(0, -25), Vector2(0, -25)]
 }
-tracks/11/type = "value"
-tracks/11/imported = false
-tracks/11/enabled = true
-tracks/11/path = NodePath("../../CharacterBody2D/Camera2D:zoom")
-tracks/11/interp = 1
-tracks/11/loop_wrap = true
-tracks/11/keys = {
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("../../CharacterBody2D/Camera2D:zoom")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
 "times": PackedFloat32Array(0, 1.26667, 8.7, 10),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
 "values": [Vector2(4, 4), Vector2(6, 6), Vector2(6, 6), Vector2(4, 4)]
+}
+tracks/10/type = "method"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("../../CharacterBody2D")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(10),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"cutscene_alr_played"
+}]
+}
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("../../CharacterBody2D/Move:visible_ratio")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"times": PackedFloat32Array(0.0333333),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+
+[sub_resource type="Animation" id="Animation_thv4y"]
+resource_name = "move_out"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../../CharacterBody2D/Move:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.5),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../../CharacterBody2D/Move:visible_ratio")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.0, 0.0]
 }
 
 [sub_resource type="Animation" id="Animation_i2gr7"]
@@ -3433,11 +3475,41 @@ tracks/7/keys = {
 "values": [Vector2(0, -2)]
 }
 
+[sub_resource type="Animation" id="Animation_t46sy"]
+resource_name = "move_tut"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../../CharacterBody2D/Move:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../../CharacterBody2D/Move:visible_ratio")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 1.0]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_n34uq"]
 _data = {
 &"RESET": SubResource("Animation_0xqs2"),
 &"intro": SubResource("Animation_ecr63"),
-&"move_out_of_way": SubResource("Animation_i2gr7")
+&"move_out": SubResource("Animation_thv4y"),
+&"move_out_of_way": SubResource("Animation_i2gr7"),
+&"move_tut": SubResource("Animation_t46sy")
 }
 
 [node name="Level 1" type="Node2D"]
@@ -3471,11 +3543,11 @@ script = ExtResource("2_0xqs2")
 [node name="Animations" type="AnimatedSprite2D" parent="CharacterBody2D"]
 z_index = 1
 sprite_frames = SubResource("SpriteFrames_b3jfe")
-animation = &"lying down"
+animation = &"idle"
 autoplay = "idle"
 
 [node name="Collision" type="CollisionShape2D" parent="CharacterBody2D"]
-position = Vector2(0, 2)
+position = Vector2(0, 2.225)
 shape = ExtResource("4_ipmer")
 
 [node name="Game Screen" type="CanvasLayer" parent="CharacterBody2D"]
@@ -3548,28 +3620,85 @@ wait_time = 1.5
 one_shot = true
 
 [node name="coyote_time" type="Timer" parent="CharacterBody2D"]
-wait_time = 0.15
 one_shot = true
 
 [node name="Labels" type="Node" parent="CharacterBody2D"]
 
 [node name="cutscene 1" type="Label" parent="CharacterBody2D/Labels"]
-offset_left = -159.0
+offset_left = -164.0
 offset_top = -43.0
-offset_right = -8.0
+offset_right = -13.0
 offset_bottom = -20.0
 scale = Vector2(0.6, 0.6)
 text = "What A Nice Day!"
 label_settings = SubResource("LabelSettings_r7dij")
 
 [node name="cutscene 2" type="Label" parent="CharacterBody2D/Labels"]
-offset_left = -161.0
+offset_left = -167.0
 offset_top = -43.0
-offset_right = -5.0
+offset_right = -11.0
 offset_bottom = -20.0
 scale = Vector2(0.6, 0.6)
 text = "Ok! Let's Go Home"
 label_settings = SubResource("LabelSettings_r7dij")
+visible_characters = 0
+visible_ratio = 0.0
+
+[node name="Move" type="RichTextLabel" parent="CharacterBody2D"]
+visible = false
+offset_left = -70.4969
+offset_top = -67.3997
+offset_right = 95.5031
+offset_bottom = -34.3997
+scale = Vector2(0.880001, 0.880001)
+theme_override_font_sizes/bold_font_size = 5
+bbcode_enabled = true
+text = "[b][color=black][font=\"res://assets/BoldPixels.ttf\"]Press A or D to Move
+    Shift to Run"
+
+[node name="Jump" type="RichTextLabel" parent="CharacterBody2D"]
+visible = false
+offset_left = 320.556
+offset_top = -96.8213
+offset_right = 450.556
+offset_bottom = -61.8213
+bbcode_enabled = true
+text = "[b][color=black][font=\"res://assets/BoldPixels.ttf\"]Press W or Space 
+    to jump"
+visible_characters = 0
+visible_ratio = 0.0
+
+[node name="Attack" type="RichTextLabel" parent="CharacterBody2D"]
+visible = false
+offset_left = 30.7759
+offset_top = -11.4987
+offset_right = 277.776
+offset_bottom = 4.50131
+scale = Vector2(0.730034, 0.730034)
+bbcode_enabled = true
+text = "[b][font=\"res://assets/BoldPixels.ttf\"]Click Left Mouse Button to Attack"
+
+[node name="Block" type="RichTextLabel" parent="CharacterBody2D"]
+visible = false
+offset_left = 31.7786
+offset_top = -11.4987
+offset_right = 278.779
+offset_bottom = 4.50131
+scale = Vector2(0.730034, 0.730034)
+bbcode_enabled = true
+text = "[b][font=\"res://assets/BoldPixels.ttf\"]Click Right Mouse Button to Block"
+visible_characters = 0
+visible_ratio = 0.0
+
+[node name="Crouch" type="RichTextLabel" parent="CharacterBody2D"]
+visible = false
+offset_left = 69.8812
+offset_top = -11.4987
+offset_right = 199.881
+offset_bottom = 4.50131
+scale = Vector2(0.730034, 0.730034)
+bbcode_enabled = true
+text = "[b][font=\"res://assets/BoldPixels.ttf\"]Press D to Crouch"
 visible_characters = 0
 visible_ratio = 0.0
 
@@ -3661,17 +3790,17 @@ texture = ExtResource("6_ecr63")
 
 [node name="ParallaxLayer2" type="ParallaxLayer" parent="ParallaxBackground3"]
 motion_scale = Vector2(0.45, 1)
-motion_mirroring = Vector2(720, 0)
+motion_mirroring = Vector2(959.6, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground3/ParallaxLayer2"]
-position = Vector2(0, 19)
+position = Vector2(-68, -86)
 scale = Vector2(1.5, 1.5)
-texture = ExtResource("7_n34uq")
+texture = ExtResource("16_i2gr7")
 
 [node name="Sprite2D2" type="Sprite2D" parent="ParallaxBackground3/ParallaxLayer2"]
-position = Vector2(480, 19)
+position = Vector2(412, -86)
 scale = Vector2(1.5, 1.5)
-texture = ExtResource("7_n34uq")
+texture = ExtResource("16_i2gr7")
 
 [node name="StaticBody2D" parent="." instance=ExtResource("17_r7dij")]
 position = Vector2(-246.664, -99.0526)

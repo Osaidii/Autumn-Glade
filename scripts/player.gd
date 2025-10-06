@@ -12,6 +12,7 @@ extends CharacterBody2D
 var direction: int
 var anim = ""
 
+@onready var animation_tutorial: AnimationPlayer = $AnimationPlayer
 @onready var animations: AnimatedSprite2D = $Animations
 @onready var collision: CollisionShape2D = $Collision
 @onready var health_bar: TextureProgressBar = $"Game Screen/HealthBar"
@@ -44,7 +45,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		is_healing = true
 		health += 30
 		GlobalVariables.health_bottles -= 1
-	if event.is_action_pressed("attack") and !is_jumping and !is_falling and !is_healing and can_attack:
+	if event.is_action_pressed("attack") and !is_jumping and !is_falling and !is_healing and can_attack and GlobalVariables.attack_allow:
 		if is_attacking:
 			pass
 		else:
@@ -71,6 +72,14 @@ func _physics_process(delta: float) -> void:
 	#No Control if Dead
 	if is_dead: return
 	if is_attacking: return
+	
+	if GlobalVariables.move_tut == true:
+		$"../cutscenes".play("move_tut")
+		GlobalVariables.move_tut = false
+	if Input.is_action_pressed("left") or Input.is_action_pressed("right"):
+		GlobalVariables.moved = true
+	if GlobalVariables.moved == true:
+		$"../cutscenes".play("move_out")
 	
 	set_mouse()
 	
@@ -127,7 +136,7 @@ func _physics_process(delta: float) -> void:
 		collision.position.y = 0
 	
 	# Handle jump.
-	if Input.is_action_just_pressed("jump") and !is_crouching and !is_healing:
+	if Input.is_action_just_pressed("jump") and !is_crouching and !is_healing and GlobalVariables.jump_allow:
 		if is_on_floor() or !coyote_time.is_stopped():
 			velocity.y = JUMP_VELOCITY
 			is_jumping = true
@@ -235,12 +244,11 @@ func dead():
 
 func cutscene_alr_played():
 	GlobalVariables.cutscene_played = true
+	animations.global_position.y += -2
+	GlobalVariables.move_tut = true
 
 func _on_attack_cooldown_timeout() -> void:
 	can_attack = true
 
 func _on_combo_reset_timeout() -> void:
 	which_att_state = AttackStates.ATT1
-
-func _on_coyote_time_timeout() -> void:
-	pass # Replace with function body.
