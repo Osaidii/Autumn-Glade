@@ -6,5 +6,4 @@ var spawn_pos = Vector2(-114, -11)
 
 var cutscene_played = false
 var move_tut = false
-var jump_allow = false
 var moved = false

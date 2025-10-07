@@ -45,7 +45,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		is_healing = true
 		health += 30
 		GlobalVariables.health_bottles -= 1
-	if event.is_action_pressed("attack") and !is_jumping and !is_falling and !is_healing and can_attack and GlobalVariables.attack_allow:
+	if event.is_action_pressed("attack") and !is_jumping and !is_falling and !is_healing and can_attack:
 		if is_attacking:
 			pass
 		else:
@@ -136,7 +136,7 @@ func _physics_process(delta: float) -> void:
 		collision.position.y = 0
 	
 	# Handle jump.
-	if Input.is_action_just_pressed("jump") and !is_crouching and !is_healing and GlobalVariables.jump_allow:
+	if Input.is_action_just_pressed("jump") and !is_crouching and !is_healing:
 		if is_on_floor() or !coyote_time.is_stopped():
 			velocity.y = JUMP_VELOCITY
 			is_jumping = true
