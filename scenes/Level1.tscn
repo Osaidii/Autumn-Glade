@@ -3821,8 +3821,9 @@ position = Vector2(2785, -41)
 position = Vector2(752, -50)
 scale = Vector2(0.994621, 1.03971)
 
-[node name="TheifEnemy" parent="Checkpoint Manager" instance=ExtResource("20_t46sy")]
-position = Vector2(2897, -64)
+[node name="TheifEnemy" parent="." instance=ExtResource("20_t46sy")]
+position = Vector2(2907.83, -60.8046)
+scale = Vector2(0.8, 0.783)
 
 [connection signal="body_entered" from="danger" to="danger" method="_on_body_entered"]
 [connection signal="animation_finished" from="CharacterBody2D/Animations" to="CharacterBody2D" method="_on_animated_sprite_2d_animation_finished"]

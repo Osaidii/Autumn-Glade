@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://bh60e7xm06k84"]
+[gd_scene load_steps=32 format=3 uid="uid://bh60e7xm06k84"]
 
 [ext_resource type="Script" uid="uid://8uwtvcylb6u" path="res://scripts/theif_enemy.gd" id="1_7cruf"]
 [ext_resource type="Texture2D" uid="uid://f576ybe2m562" path="res://assets/Enemy/Enemy04/enemy04_sheet.png" id="1_t1jv8"]
@@ -173,7 +173,10 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_t1jv8"]
-size = Vector2(19, 39)
+size = Vector2(19, 34)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6feac"]
+size = Vector2(290, 20)
 
 [node name="TheifEnemy" type="CharacterBody2D"]
 script = ExtResource("1_7cruf")
@@ -186,11 +189,14 @@ autoplay = "idle"
 frame_progress = 0.281292
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
-position = Vector2(-0.5, -1.5)
 shape = SubResource("RectangleShape2D_t1jv8")
 
-[node name="Timer" type="Timer" parent="."]
-autostart = true
+[node name="detection" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 8
 
-[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="detection"]
+shape = SubResource("RectangleShape2D_6feac")
+
+[connection signal="body_entered" from="detection" to="." method="_on_detection_body_entered"]
+[connection signal="body_exited" from="detection" to="." method="_on_detection_body_exited"]
