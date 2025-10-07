@@ -20,6 +20,7 @@ var anim = ""
 @onready var attack_cooldown: Timer = $attack_cooldown
 @onready var combo_reset: Timer = $combo_reset
 @onready var coyote_time: Timer = $coyote_time
+@onready var cutscenes: AnimationPlayer = $"../cutscenes"
 
 const IDLE = preload("res://collisions/idle.tres")
 const CROUTCH = preload("res://collisions/croutch.tres")
@@ -56,9 +57,9 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func _ready():
 	if GlobalVariables.at_checkpoint < 1:
-		$"../cutscenes".play("intro")
+		cutscenes.play("intro")
 	else:
-		$"../cutscenes".play("move_out_of_way")
+		cutscenes.play("move_out_of_way")
 	self.global_position = GlobalVariables.spawn_pos
 	collision.disabled = false
 	collision.shape = IDLE
@@ -72,6 +73,9 @@ func _physics_process(delta: float) -> void:
 	#No Control if Dead
 	if is_dead: return
 	if is_attacking: return
+	print(GlobalVariables.spawn_pos)
+	if GlobalVariables.spawn_pos.x == 2841:
+		cutscenes.play("enemy_attack")
 	
 	if GlobalVariables.move_tut == true:
 		$"../cutscenes".play("move_tut")
@@ -136,11 +140,11 @@ func _physics_process(delta: float) -> void:
 		collision.position.y = 0
 	
 	# Handle jump.
-	if Input.is_action_just_pressed("jump") and !is_crouching and !is_healing:
+	if Input.is_action_just_pressed("jump") and !is_crouching and !is_healing and !is_jumping:
 		if is_on_floor() or !coyote_time.is_stopped():
 			velocity.y = JUMP_VELOCITY
 			is_jumping = true
-	elif velocity.y > 0:
+	elif is_on_floor():
 		is_jumping = false
 	
 	if velocity.y > 0 and !is_on_floor():

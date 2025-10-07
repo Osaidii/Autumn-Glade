@@ -6,11 +6,13 @@ extends Control
 var paused: bool = false
 
 func resume():
+	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	animation_player.play_backwards("blur")
 	pause_menu.visible = false
 	get_tree().paused = false
 
 func pause():
+	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	$VBoxContainer/Resume.grab_focus()
 	animation_player.play("blur")
 	pause_menu.visible = true

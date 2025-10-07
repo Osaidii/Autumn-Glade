@@ -1,4 +1,4 @@
-class_name player
+class_name thief
 extends CharacterBody2D
 
 @export var player: CharacterBody2D

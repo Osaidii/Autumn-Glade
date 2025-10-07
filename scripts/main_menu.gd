@@ -6,6 +6,7 @@ const LEVEL_1 = preload("res://scenes/Level1.tscn") as PackedScene
 @onready var select: AudioStreamPlayer = $Select
 
 func _ready():
+	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	select.volume_db = -80
 	%Play.grab_focus()
 	await  get_tree().create_timer(1).timeout

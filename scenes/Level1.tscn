@@ -1,5 +1,6 @@
-[gd_scene load_steps=169 format=4 uid="uid://1ffj4pyi4mtr"]
+[gd_scene load_steps=171 format=4 uid="uid://1ffj4pyi4mtr"]
 
+[ext_resource type="Script" uid="uid://dm7xcieerp6k5" path="res://scripts/level_1.gd" id="1_thv4y"]
 [ext_resource type="Script" uid="uid://c2f21013qxwle" path="res://scripts/player.gd" id="2_0xqs2"]
 [ext_resource type="Texture2D" uid="uid://dvlkao6v72gv2" path="res://assets/character/Character Animations.png" id="3_ipmer"]
 [ext_resource type="Script" uid="uid://bxp64knk6fkrh" path="res://scripts/danger zone.gd" id="3_svatc"]
@@ -19,6 +20,7 @@
 [ext_resource type="PackedScene" uid="uid://ddtihdb241ujt" path="res://scenes/barrier.tscn" id="17_r7dij"]
 [ext_resource type="Script" uid="uid://dlmkrdbcopgr1" path="res://scripts/checkpoint_manager.gd" id="18_2ouud"]
 [ext_resource type="PackedScene" uid="uid://c7x3pq78qc02a" path="res://scenes/respawn.tscn" id="19_i2gr7"]
+[ext_resource type="PackedScene" uid="uid://bh60e7xm06k84" path="res://scenes/theif_enemy.tscn" id="20_t46sy"]
 
 [sub_resource type="Gradient" id="Gradient_ecr63"]
 offsets = PackedFloat32Array(0, 0.143498, 0.618834, 1)
@@ -3514,6 +3516,7 @@ _data = {
 
 [node name="Level 1" type="Node2D"]
 scale = Vector2(0.997307, 1.01966)
+script = ExtResource("1_thv4y")
 
 [node name="Tutorials" type="Node" parent="."]
 
@@ -3725,7 +3728,6 @@ libraries = {
 }
 
 [node name="CanvasLayer2" type="CanvasLayer" parent="."]
-visible = false
 
 [node name="ColorRect" type="ColorRect" parent="CanvasLayer2"]
 offset_right = 1920.0
@@ -3809,11 +3811,18 @@ position = Vector2(-246.664, -99.0526)
 script = ExtResource("18_2ouud")
 
 [node name="Respawn1" parent="Checkpoint Manager" instance=ExtResource("19_i2gr7")]
-position = Vector2(-33, -1)
+position = Vector2(30, 3)
 scale = Vector2(0.997307, 1.01966)
 
 [node name="Respawn2" parent="Checkpoint Manager" instance=ExtResource("19_i2gr7")]
-position = Vector2(1604, 22)
+position = Vector2(2785, -41)
+
+[node name="Respawn3" parent="Checkpoint Manager" instance=ExtResource("19_i2gr7")]
+position = Vector2(752, -50)
+scale = Vector2(0.994621, 1.03971)
+
+[node name="TheifEnemy" parent="Checkpoint Manager" instance=ExtResource("20_t46sy")]
+position = Vector2(2897, -64)
 
 [connection signal="body_entered" from="danger" to="danger" method="_on_body_entered"]
 [connection signal="animation_finished" from="CharacterBody2D/Animations" to="CharacterBody2D" method="_on_animated_sprite_2d_animation_finished"]
