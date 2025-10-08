@@ -12,7 +12,6 @@ extends CharacterBody2D
 var direction: int
 var anim = ""
 
-@onready var animation_tutorial: AnimationPlayer = $AnimationPlayer
 @onready var animations: AnimatedSprite2D = $Animations
 @onready var collision: CollisionShape2D = $Collision
 @onready var health_bar: TextureProgressBar = $"Game Screen/HealthBar"
@@ -63,7 +62,7 @@ func _ready():
 	self.global_position = GlobalVariables.spawn_pos
 	collision.disabled = false
 	collision.shape = IDLE
-	collision.position.x = 0	
+	collision.position.x = 2
 	collision.position.y = 0
 	is_dead = false
 	GlobalVariables.health_bottles = 0
@@ -73,7 +72,6 @@ func _physics_process(delta: float) -> void:
 	#No Control if Dead
 	if is_dead: return
 	if is_attacking: return
-	print(GlobalVariables.spawn_pos)
 	if GlobalVariables.spawn_pos.x == 2841:
 		cutscenes.play("enemy_attack")
 	
@@ -122,7 +120,7 @@ func _physics_process(delta: float) -> void:
 		velocity.y += gravity * delta
 	
 	#Variables Changing
-	var was_on_floor = is_on_floor()
+	was_on_floor = is_on_floor()
 	
 	if is_on_floor():
 		is_falling = false
@@ -166,8 +164,8 @@ func _physics_process(delta: float) -> void:
 		if was_on_floor and !is_on_floor():
 			coyote_time.start()
 
-func anims(anim):
-	if anim == "lying down":
+func anims(animation):
+	if animation == "lying down":
 		animations.play("lying down")
 	if anim == "get up":
 		animations.play("get_up")
@@ -225,10 +223,10 @@ func facing_dir():
 	if !is_healing and !is_attacking and !is_dead:
 		if direction < 0:
 			animations.flip_h = true
-			collision.position.x = -5
+			collision.position.x = -3
 		if direction > 0:
 			animations.flip_h = false
-			collision.position.x = 0
+			collision.position.x = 2
 
 func healthset():
 	if health > 100:

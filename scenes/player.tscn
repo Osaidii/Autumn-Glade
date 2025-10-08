@@ -1300,7 +1300,8 @@ animations = [{
 
 [node name="CharacterBody2D" type="CharacterBody2D"]
 z_as_relative = false
-collision_layer = 11
+position = Vector2(-1, 0)
+collision_layer = 7
 script = ExtResource("1_qlg0r")
 
 [node name="Animations" type="AnimatedSprite2D" parent="."]

@@ -22,7 +22,7 @@ func _ready() -> void:
 	animation_player.play("RESET")
 	pause_menu.visible = false
 
-func _process(delta):
+func _process(_delta):
 	logic()
 
 func logic():
