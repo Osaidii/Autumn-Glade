@@ -1,4 +1,4 @@
-[gd_scene load_steps=184 format=4 uid="uid://1ffj4pyi4mtr"]
+[gd_scene load_steps=177 format=4 uid="uid://1ffj4pyi4mtr"]
 
 [ext_resource type="Script" uid="uid://dm7xcieerp6k5" path="res://scripts/level_1.gd" id="1_thv4y"]
 [ext_resource type="Script" uid="uid://c2f21013qxwle" path="res://scripts/player.gd" id="2_0xqs2"]
@@ -6,7 +6,6 @@
 [ext_resource type="Script" uid="uid://bxp64knk6fkrh" path="res://scripts/danger zone.gd" id="3_svatc"]
 [ext_resource type="FontFile" uid="uid://drmmdlxyklae1" path="res://assets/ARCADECLASSIC.TTF" id="4_av1gt"]
 [ext_resource type="Texture2D" uid="uid://dlq0apcfj2pk" path="res://assets/autumn woods/oak_woods_tileset.png" id="4_dw26h"]
-[ext_resource type="Shape2D" uid="uid://cisrx6umiko0m" path="res://collisions/idle.tres" id="4_ipmer"]
 [ext_resource type="PackedScene" uid="uid://4ag1mvkno868" path="res://ui/pause_menu.tscn" id="4_lrl65"]
 [ext_resource type="Texture2D" uid="uid://c2b8xwp8ni8bw" path="res://assets/BottleUI.png" id="5_r7dij"]
 [ext_resource type="Texture2D" uid="uid://b318ts0b0adbd" path="res://assets/autumn woods/background/background_layer_1.png" id="5_svatc"]
@@ -17,13 +16,12 @@
 [ext_resource type="Script" uid="uid://sl5nxpcoqsd3" path="res://scripts/health_ui.gd" id="8_t46sy"]
 [ext_resource type="FontFile" uid="uid://clhk3d3yvekk1" path="res://assets/BoldPixels.ttf" id="10_av1gt"]
 [ext_resource type="Texture2D" uid="uid://bmsyqhig8ny26" path="res://assets/platform.png" id="14_u4kti"]
-[ext_resource type="Texture2D" uid="uid://bfpgwkckf25ik" path="res://assets/breaking platform.png" id="15_0ybwg"]
 [ext_resource type="Texture2D" uid="uid://e3f6h3bixquw" path="res://assets/autumn woods/world_tileset.png" id="16_0ybwg"]
 [ext_resource type="Texture2D" uid="uid://cry1v2iabe3hi" path="res://assets/autumn woods/background/background_layer_31.png" id="16_i2gr7"]
+[ext_resource type="PackedScene" uid="uid://8boxliotxgdi" path="res://scenes/breaking_platform.tscn" id="16_xgw5r"]
 [ext_resource type="PackedScene" uid="uid://ddtihdb241ujt" path="res://scenes/barrier.tscn" id="17_r7dij"]
 [ext_resource type="Script" uid="uid://dlmkrdbcopgr1" path="res://scripts/checkpoint_manager.gd" id="18_2ouud"]
 [ext_resource type="PackedScene" uid="uid://c7x3pq78qc02a" path="res://scenes/respawn.tscn" id="19_i2gr7"]
-[ext_resource type="Script" uid="uid://b1kibsoh5r1nb" path="res://scripts/moving_platform.gd" id="24_xgw5r"]
 
 [sub_resource type="Gradient" id="Gradient_ecr63"]
 offsets = PackedFloat32Array(0, 0.143498, 0.618834, 1)
@@ -1325,6 +1323,9 @@ animations = [{
 "name": &"walk",
 "speed": 9.0
 }]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_u4kti"]
+size = Vector2(11.0297, 23.5373)
 
 [sub_resource type="LabelSettings" id="LabelSettings_r7dij"]
 font = ExtResource("10_av1gt")
@@ -3020,12 +3021,6 @@ texture_region_size = Vector2i(43, 8)
 0:0/0 = 0
 0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-20, -4, 20, -4, 20, 4, -20, 4)
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_gumju"]
-texture = ExtResource("15_0ybwg")
-texture_region_size = Vector2i(43, 8)
-0:0/0 = 0
-0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-21.7143, -3.42857, -1.14286, -3.42857, 8, -3.42857, 10.2857, -3.42857, 21.7143, -3.42857, 21.7143, 3.42857, -21.7143, 3.42857)
-
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_vbuca"]
 texture = ExtResource("16_0ybwg")
 0:0/0 = 0
@@ -3040,7 +3035,7 @@ texture = ExtResource("16_0ybwg")
 9:0/0 = 0
 9:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -5.71429, 8, -5.71429, 8, -3.42857, 8, -1.14286, -8, -1.14286)
 10:0/0 = 0
-10:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -5.71429, 8, -8, 8, -5.71429, 8, -3.42857, 5.71429, -1.14286, -8, -1.14286)
+10:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -5.71429, 8, -5.71429, 8, -5.71429, 8, -3.42857, 8, 1.14286, -8, 1.14286)
 11:0/0 = 0
 11:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -5.71429, 8, -8, 8, -5.71429, 8, -3.42857, 5.71429, -1.14286, -8, -1.14286)
 0:1/0 = 0
@@ -3176,7 +3171,6 @@ custom_data_layer_0/name = "footsteps"
 custom_data_layer_0/type = 4
 sources/0 = SubResource("TileSetAtlasSource_xgw5r")
 sources/1 = SubResource("TileSetAtlasSource_ntbnh")
-sources/2 = SubResource("TileSetAtlasSource_gumju")
 sources/3 = SubResource("TileSetAtlasSource_vbuca")
 sources/4 = SubResource("TileSetAtlasSource_0ybwg")
 
@@ -3710,53 +3704,6 @@ _data = {
 &"move_tut": SubResource("Animation_t46sy")
 }
 
-[sub_resource type="Curve2D" id="Curve2D_ntbnh"]
-_data = {
-"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 126, 0)
-}
-point_count = 2
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_pgg5x"]
-size = Vector2(41, 8)
-
-[sub_resource type="Animation" id="Animation_20ojx"]
-resource_name = "follow"
-length = 2.0
-loop_mode = 2
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("PathFollow2D:progress_ratio")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1.96667),
-"transitions": PackedFloat32Array(-1.56, -1.56),
-"update": 0,
-"values": [0.0, 1.0]
-}
-
-[sub_resource type="Animation" id="Animation_st7sd"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("PathFollow2D:progress_ratio")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_gpe1g"]
-_data = {
-&"RESET": SubResource("Animation_st7sd"),
-&"follow": SubResource("Animation_20ojx")
-}
-
 [node name="Level 1" type="Node2D"]
 scale = Vector2(0.997307, 1.01966)
 script = ExtResource("1_thv4y")
@@ -3838,7 +3785,7 @@ autoplay = "idle"
 
 [node name="Collision" type="CollisionShape2D" parent="CharacterBody2D"]
 position = Vector2(1.69757, 2.225)
-shape = ExtResource("4_ipmer")
+shape = SubResource("RectangleShape2D_u4kti")
 
 [node name="Game Screen" type="CanvasLayer" parent="CharacterBody2D"]
 visible = false
@@ -3910,6 +3857,7 @@ wait_time = 1.5
 one_shot = true
 
 [node name="coyote_time" type="Timer" parent="CharacterBody2D"]
+wait_time = 0.3
 one_shot = true
 
 [node name="Labels" type="Node" parent="CharacterBody2D"]
@@ -4063,32 +4011,9 @@ position = Vector2(2800, 9)
 position = Vector2(752, -52)
 scale = Vector2(0.994621, 1.03971)
 
-[node name="platforms" type="Node" parent="."]
-
-[node name="Path2D" type="Path2D" parent="platforms"]
-position = Vector2(365, -71)
-scale = Vector2(0.997307, 1.01966)
-curve = SubResource("Curve2D_ntbnh")
-script = ExtResource("24_xgw5r")
-
-[node name="AnimatableBody2D" type="AnimatableBody2D" parent="platforms/Path2D"]
-
-[node name="Sprite2D" type="Sprite2D" parent="platforms/Path2D/AnimatableBody2D"]
-texture = ExtResource("14_u4kti")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="platforms/Path2D/AnimatableBody2D"]
-position = Vector2(0.5, 0)
-shape = SubResource("RectangleShape2D_pgg5x")
-
-[node name="PathFollow2D" type="PathFollow2D" parent="platforms/Path2D"]
-
-[node name="RemoteTransform2D" type="RemoteTransform2D" parent="platforms/Path2D/PathFollow2D"]
-remote_path = NodePath("../../AnimatableBody2D")
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="platforms/Path2D"]
-libraries = {
-&"": SubResource("AnimationLibrary_gpe1g")
-}
+[node name="breaking_platform" parent="." instance=ExtResource("16_xgw5r")]
+position = Vector2(76.2052, -26.4794)
+scale = Vector2(1.0027, 0.980719)
 
 [connection signal="body_entered" from="danger" to="danger" method="_on_body_entered"]
 [connection signal="animation_finished" from="CharacterBody2D/Animations" to="CharacterBody2D" method="_on_animated_sprite_2d_animation_finished"]

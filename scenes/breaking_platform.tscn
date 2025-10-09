@@ -1,0 +1,35 @@
+[gd_scene load_steps=5 format=3 uid="uid://8boxliotxgdi"]
+
+[ext_resource type="Script" uid="uid://c1iinjsvevbro" path="res://scripts/breaking_platform.gd" id="1_erf5c"]
+[ext_resource type="Texture2D" uid="uid://bfpgwkckf25ik" path="res://assets/breaking platform.png" id="2_jomsx"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dpx7y"]
+size = Vector2(20, 19.0909)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_32qlu"]
+size = Vector2(20, 3.18183)
+
+[node name="breaking_platform" type="StaticBody2D"]
+script = ExtResource("1_erf5c")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 0.200006)
+scale = Vector2(2.08, 0.440001)
+shape = SubResource("RectangleShape2D_dpx7y")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_jomsx")
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2(0, 0.200006)
+scale = Vector2(2.08, 0.440001)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, -10.2272)
+shape = SubResource("RectangleShape2D_32qlu")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 1.5
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

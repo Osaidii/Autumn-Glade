@@ -5,9 +5,9 @@
 
 [sub_resource type="Curve2D" id="Curve2D_afg43"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 126, 0)
+"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 126, 0, 0, 0, 0, 0, 126, 0, 129.316, 23.6053, -129.316, -23.6053, 93, -85, 0, 0, 0, 0, 0, 0)
 }
-point_count = 2
+point_count = 5
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pgg5x"]
 size = Vector2(41, 8)
@@ -53,10 +53,11 @@ _data = {
 [node name="Path2D" type="Path2D"]
 curve = SubResource("Curve2D_afg43")
 script = ExtResource("1_1tdcd")
-loop = false
+speed_open = 6.0
+speed_closed = 9.0
 
 [node name="AnimatableBody2D" type="AnimatableBody2D" parent="."]
-position = Vector2(68.3896, 0)
+position = Vector2(73.725, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="AnimatableBody2D"]
 texture = ExtResource("2_mb26n")

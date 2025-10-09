@@ -235,8 +235,6 @@ func healthset():
 		health = 0
 
 func dead():
-	$"../cutscenes".autoplay = false
-	$AnimationPlayer.autoplay = ""  
 	collision.disabled = true
 	animations.play("die")
 	Scenetransition.change_scene()
