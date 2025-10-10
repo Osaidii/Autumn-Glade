@@ -2,12 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://78yjq8ksp3lj"
-valid=false
+uid="uid://wlwb2im2l72a"
+path="res://.godot/imported/Moving Spikes 32x32 scaled 64x64.png-fdd17bc497ce907f01a801788b7ad6b8.ctex"
+metadata={
+"vram_texture": false
+}
 
 [deps]
 
-source_file="res://assets/pixel-art-set-computer-keyboard-illustration_1131527-5.jpg"
+source_file="res://assets/Moving Spikes 32x32 scaled 64x64.png"
+dest_files=["res://.godot/imported/Moving Spikes 32x32 scaled 64x64.png-fdd17bc497ce907f01a801788b7ad6b8.ctex"]
 
 [params]
 

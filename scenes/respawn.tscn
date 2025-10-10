@@ -1,9 +1,82 @@
-[gd_scene load_steps=3 format=3 uid="uid://c7x3pq78qc02a"]
+[gd_scene load_steps=16 format=3 uid="uid://c7x3pq78qc02a"]
 
 [ext_resource type="Script" uid="uid://cp5a8uosbehca" path="res://scripts/respawn.gd" id="1_w5qvc"]
+[ext_resource type="Texture2D" uid="uid://b2kfv3cajx3dd" path="res://assets/flag animation.png" id="2_qfst3"]
+[ext_resource type="AudioStream" uid="uid://bwmrko1fkia32" path="res://assets/level-up-289723.mp3" id="3_wmdid"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g0w6s"]
 size = Vector2(20, 138)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l7j7o"]
+atlas = ExtResource("2_qfst3")
+region = Rect2(60, 0, 60, 60)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0g8ip"]
+atlas = ExtResource("2_qfst3")
+region = Rect2(0, 0, 60, 60)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t7c6v"]
+atlas = ExtResource("2_qfst3")
+region = Rect2(60, 0, 60, 60)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mpl4c"]
+atlas = ExtResource("2_qfst3")
+region = Rect2(120, 0, 60, 60)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hg3we"]
+atlas = ExtResource("2_qfst3")
+region = Rect2(180, 0, 60, 60)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s6t1l"]
+atlas = ExtResource("2_qfst3")
+region = Rect2(240, 0, 60, 60)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_rdxuf"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l7j7o")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 6.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0g8ip")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t7c6v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mpl4c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hg3we")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s6t1l")
+}],
+"loop": true,
+"name": &"reached",
+"speed": 5.0
+}]
+
+[sub_resource type="Curve" id="Curve_qfst3"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.497959, 0.292135), -3.87896, -3.87896, 0, 0, Vector2(0.987755, 0.303371), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Animation" id="Animation_qfst3"]
+resource_name = "reached"
+
+[sub_resource type="Animation" id="Animation_wmdid"]
+resource_name = "RESET"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_l7j7o"]
+_data = {
+&"RESET": SubResource("Animation_wmdid"),
+&"reached": SubResource("Animation_qfst3")
+}
 
 [node name="Respawn" type="Area2D"]
 script = ExtResource("1_w5qvc")
@@ -14,6 +87,79 @@ scale = Vector2(1.00595, 0.977996)
 shape = SubResource("RectangleShape2D_g0w6s")
 
 [node name="Respawn Point" type="Marker2D" parent="."]
-position = Vector2(56, 0)
+position = Vector2(41, -26)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+z_index = -6
+position = Vector2(15, -27)
+sprite_frames = SubResource("SpriteFrames_rdxuf")
+animation = &"reached"
+autoplay = "idle"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_wmdid")
+volume_db = 5.303
+
+[node name="green" type="CPUParticles2D" parent="."]
+position = Vector2(-6, -45)
+amount = 25
+lifetime = 2.0
+explosiveness = 0.6
+randomness = 0.2
+local_coords = true
+direction = Vector2(0, -1)
+gravity = Vector2(0, 100)
+initial_velocity_min = 50.0
+initial_velocity_max = 100.0
+angular_velocity_min = -297.74
+angular_velocity_max = 492.08
+linear_accel_min = 11.38
+linear_accel_max = 11.38
+scale_amount_max = 2.0
+scale_amount_curve = SubResource("Curve_qfst3")
+color = Color(0, 0.980392, 0.54902, 1)
+
+[node name="yellow" type="CPUParticles2D" parent="."]
+position = Vector2(-6, -45)
+amount = 25
+lifetime = 2.0
+explosiveness = 0.6
+randomness = 0.2
+local_coords = true
+direction = Vector2(0, -1)
+gravity = Vector2(0, 100)
+initial_velocity_min = 50.0
+initial_velocity_max = 100.0
+angular_velocity_min = -297.74
+angular_velocity_max = 492.08
+linear_accel_min = 11.38
+linear_accel_max = 11.38
+scale_amount_max = 2.0
+scale_amount_curve = SubResource("Curve_qfst3")
+color = Color(1, 0.796078, 0.054902, 1)
+
+[node name="red" type="CPUParticles2D" parent="."]
+position = Vector2(-6, -45)
+amount = 35
+lifetime = 2.0
+explosiveness = 0.6
+randomness = 0.2
+local_coords = true
+direction = Vector2(0, -1)
+gravity = Vector2(0, 100)
+initial_velocity_min = 50.0
+initial_velocity_max = 100.0
+angular_velocity_min = -297.74
+angular_velocity_max = 492.08
+linear_accel_min = 11.38
+linear_accel_max = 11.38
+scale_amount_max = 2.0
+scale_amount_curve = SubResource("Curve_qfst3")
+color = Color(0.741176, 0.211765, 0.392157, 1)
+
+[node name="cutscene" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_l7j7o")
+}
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

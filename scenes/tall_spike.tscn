@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://bsyi66ppweix5"]
+
+[ext_resource type="Texture2D" uid="uid://wlwb2im2l72a" path="res://assets/Moving Spikes 32x32 scaled 64x64.png" id="1_j2grj"]
+[ext_resource type="Script" uid="uid://0v2w7irlbc6t" path="res://scripts/spike.gd" id="2_0hcfk"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0hcfk"]
+size = Vector2(14, 20)
+
+[node name="Sprite2D" type="Sprite2D"]
+texture_filter = 1
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_j2grj")
+region_enabled = true
+region_rect = Rect2(4, 64, 14, 64)
+script = ExtResource("2_0hcfk")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, -19)
+shape = SubResource("RectangleShape2D_0hcfk")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

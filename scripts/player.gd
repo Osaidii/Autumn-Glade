@@ -29,7 +29,6 @@ var is_running = false
 var is_jumping = false
 var is_falling = false
 var is_crouching = false
-var is_dead = false
 var is_healing = false
 var is_attacking = false
 var can_attack = true
@@ -55,6 +54,7 @@ func _unhandled_input(event: InputEvent) -> void:
 			attack_anims()
 
 func _ready():
+	GlobalVariables.on_spike = false
 	if GlobalVariables.at_checkpoint < 1:
 		cutscenes.play("intro")
 	else:
@@ -64,13 +64,13 @@ func _ready():
 	collision.shape = IDLE
 	collision.position.x = 2
 	collision.position.y = 0
-	is_dead = false
+	GlobalVariables.is_dead = false
 	GlobalVariables.health_bottles = 0
 
 func _physics_process(delta: float) -> void:
 	if !can_control: return
 	#No Control if Dead
-	if is_dead: return
+	if GlobalVariables.is_dead: return
 	if is_attacking: return
 	if GlobalVariables.spawn_pos.x == 2841:
 		cutscenes.play("enemy_attack")
@@ -126,7 +126,7 @@ func _physics_process(delta: float) -> void:
 		is_falling = false
 	
 	if health <= 0:
-		is_dead = true
+		GlobalVariables.is_dead = true
 	
 	if Input.is_action_pressed("crouch") and !is_falling and !is_jumping and is_on_floor()  and !is_healing:
 		is_crouching = true
@@ -155,7 +155,7 @@ func _physics_process(delta: float) -> void:
 		velocity.x = move_toward(velocity.x, 0, SPEED * delta * 0.08)
 		
 	#If Died
-	if is_dead:
+	if GlobalVariables.is_dead or GlobalVariables.on_spike:
 		dead()
 		
 	if !is_crouching and !is_healing and !is_attacking:
@@ -169,7 +169,7 @@ func anims(animation):
 		animations.play("lying down")
 	if anim == "get up":
 		animations.play("get_up")
-	elif !is_dead:
+	elif !GlobalVariables.is_dead:
 		if is_healing:
 			animations.play("heal")
 			await get_tree().create_timer(1.1).timeout
@@ -220,7 +220,7 @@ func set_mouse():
 		Input.MOUSE_MODE_VISIBLE
 
 func facing_dir():
-	if !is_healing and !is_attacking and !is_dead:
+	if !is_healing and !is_attacking and !GlobalVariables.is_dead:
 		if direction < 0:
 			animations.flip_h = true
 			collision.position.x = -3
@@ -239,6 +239,8 @@ func dead():
 	animations.play("die")
 	Scenetransition.change_scene()
 	await get_tree().create_timer(1.5).timeout
+	while GlobalVariables.is_dead:
+		velocity.y = 0
 	get_tree().reload_current_scene()
 	Scenetransition.end_transition()
 
