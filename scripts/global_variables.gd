@@ -8,4 +8,4 @@ var cutscene_played = false
 var move_tut = false
 var moved = false
 var is_dead = false
-var on_spike = false
+var spike = false

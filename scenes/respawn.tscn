@@ -59,7 +59,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"reached",
-"speed": 5.0
+"speed": 9.0
 }]
 
 [sub_resource type="Curve" id="Curve_qfst3"]
@@ -168,6 +168,7 @@ position = Vector2(15, -27)
 sprite_frames = SubResource("SpriteFrames_rdxuf")
 animation = &"reached"
 autoplay = "idle"
+frame_progress = 0.437578
 
 [node name="green" type="CPUParticles2D" parent="."]
 position = Vector2(-6, -45)
@@ -236,7 +237,7 @@ libraries = {
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_qfst3")
-volume_db = -6.222
+volume_db = -10.0
 pitch_scale = 0.83
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

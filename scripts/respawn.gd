@@ -15,7 +15,7 @@ func _on_body_entered(body: Node2D) -> void:
 		GlobalVariables.at_checkpoint += 1
 		cutscene.play("reached")
 		animated_sprite_2d.play("reached")
-		await get_tree().create_timer(0.2).timeout
+		await get_tree().create_timer(0.1).timeout
 		GlobalVariables.spawn_pos = respawn_point.global_position
 		audio_stream_player.play()
 		collision_shape_2d.queue_free()

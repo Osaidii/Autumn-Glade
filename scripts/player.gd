@@ -54,11 +54,13 @@ func _unhandled_input(event: InputEvent) -> void:
 			attack_anims()
 
 func _ready():
-	GlobalVariables.on_spike = false
+	can_control = true
 	if GlobalVariables.at_checkpoint < 1:
 		cutscenes.play("intro")
 	else:
-		cutscenes.play("move_out_of_way")
+		cutscenes.play("move_out_of_way")	
+		$"../CanvasLayer2/ColorRect".visible = false
+		$"../CanvasLayer2/ColorRect2".visible = false
 	self.global_position = GlobalVariables.spawn_pos
 	collision.disabled = false
 	collision.shape = IDLE
@@ -68,12 +70,20 @@ func _ready():
 	GlobalVariables.health_bottles = 0
 
 func _physics_process(delta: float) -> void:
-	if !can_control: return
+	if GlobalVariables.is_dead:
+		gravity = 0 
+	if !can_control:
+		return
 	#No Control if Dead
 	if GlobalVariables.is_dead: return
 	if is_attacking: return
-	if GlobalVariables.spawn_pos.x == 2841:
-		cutscenes.play("enemy_attack")
+	#if GlobalVariables.spawn_pos.x == 2841:
+	#	cutscenes.play("enemy_attack")
+	
+	print(self.position)
+	
+	if GlobalVariables.spike:
+		GlobalVariables.is_dead = true
 	
 	if GlobalVariables.move_tut == true:
 		$"../cutscenes".play("move_tut")
@@ -155,7 +165,7 @@ func _physics_process(delta: float) -> void:
 		velocity.x = move_toward(velocity.x, 0, SPEED * delta * 0.08)
 		
 	#If Died
-	if GlobalVariables.is_dead or GlobalVariables.on_spike:
+	if GlobalVariables.is_dead:
 		dead()
 		
 	if !is_crouching and !is_healing and !is_attacking:
@@ -239,14 +249,11 @@ func dead():
 	animations.play("die")
 	Scenetransition.change_scene()
 	await get_tree().create_timer(1.5).timeout
-	while GlobalVariables.is_dead:
-		velocity.y = 0
 	get_tree().reload_current_scene()
 	Scenetransition.end_transition()
 
 func cutscene_alr_played():
 	GlobalVariables.cutscene_played = true
-	animations.global_position.y += -2
 	GlobalVariables.move_tut = true
 
 func _on_attack_cooldown_timeout() -> void:
