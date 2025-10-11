@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cp5a8uosbehca" path="res://scripts/respawn.gd" id="1_w5qvc"]
 [ext_resource type="Texture2D" uid="uid://b2kfv3cajx3dd" path="res://assets/flag animation.png" id="2_qfst3"]
-[ext_resource type="AudioStream" uid="uid://bwmrko1fkia32" path="res://assets/level-up-289723.mp3" id="3_wmdid"]
+[ext_resource type="AudioStream" uid="uid://5ipr2i6f3o2v" path="res://assets/level-up-06-370051.mp3" id="3_qfst3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g0w6s"]
 size = Vector2(20, 138)
@@ -66,11 +66,84 @@ animations = [{
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.497959, 0.292135), -3.87896, -3.87896, 0, 0, Vector2(0.987755, 0.303371), 0.0, 0.0, 0, 0]
 point_count = 3
 
-[sub_resource type="Animation" id="Animation_qfst3"]
-resource_name = "reached"
-
 [sub_resource type="Animation" id="Animation_wmdid"]
 resource_name = "RESET"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("green:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("yellow:emitting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("red:emitting")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_qfst3"]
+resource_name = "reached"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("green:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("yellow:emitting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("red:emitting")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_l7j7o"]
 _data = {
@@ -96,12 +169,9 @@ sprite_frames = SubResource("SpriteFrames_rdxuf")
 animation = &"reached"
 autoplay = "idle"
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("3_wmdid")
-volume_db = 5.303
-
 [node name="green" type="CPUParticles2D" parent="."]
 position = Vector2(-6, -45)
+emitting = false
 amount = 25
 lifetime = 2.0
 explosiveness = 0.6
@@ -121,6 +191,7 @@ color = Color(0, 0.980392, 0.54902, 1)
 
 [node name="yellow" type="CPUParticles2D" parent="."]
 position = Vector2(-6, -45)
+emitting = false
 amount = 25
 lifetime = 2.0
 explosiveness = 0.6
@@ -140,6 +211,7 @@ color = Color(1, 0.796078, 0.054902, 1)
 
 [node name="red" type="CPUParticles2D" parent="."]
 position = Vector2(-6, -45)
+emitting = false
 amount = 35
 lifetime = 2.0
 explosiveness = 0.6
@@ -161,5 +233,10 @@ color = Color(0.741176, 0.211765, 0.392157, 1)
 libraries = {
 &"": SubResource("AnimationLibrary_l7j7o")
 }
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_qfst3")
+volume_db = -6.222
+pitch_scale = 0.83
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
