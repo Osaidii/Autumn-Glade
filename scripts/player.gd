@@ -64,23 +64,19 @@ func _ready():
 	self.global_position = GlobalVariables.spawn_pos
 	collision.disabled = false
 	collision.shape = IDLE
-	collision.position.x = 2
-	collision.position.y = 0
+	collision.position.x = 1.6
+	collision.position.y = 4
 	GlobalVariables.is_dead = false
 	GlobalVariables.health_bottles = 0
 
 func _physics_process(delta: float) -> void:
-	if GlobalVariables.is_dead:
-		gravity = 0 
-	if !can_control:
-		return
 	#No Control if Dead
+	if GlobalVariables.is_dead: gravity = 0 
 	if GlobalVariables.is_dead: return
+	if !can_control: return
 	if is_attacking: return
-	#if GlobalVariables.spawn_pos.x == 2841:
-	#	cutscenes.play("enemy_attack")
 	
-	print(self.position)
+	animations.position.y = -2
 	
 	if GlobalVariables.spike:
 		GlobalVariables.is_dead = true
@@ -154,6 +150,9 @@ func _physics_process(delta: float) -> void:
 			is_jumping = true
 	elif is_on_floor():
 		is_jumping = false
+	if !Input.is_action_pressed("jump") and velocity.y > 0 and !is_falling:
+		velocity.y *= 0.4
+	
 	
 	if velocity.y > 0 and !is_on_floor():
 		is_falling = true
