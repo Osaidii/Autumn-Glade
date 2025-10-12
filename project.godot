@@ -20,7 +20,6 @@ boot_splash/bg_color=Color(0, 0, 0, 1)
 GlobalVariables="*res://scripts/global_variables.gd"
 Scenetransition="*res://ui/scene_transition.tscn"
 BackgroundMusic="*res://ui/background music.tscn"
-KeepCheckpointEnabled="*res://scripts/keep_checkpoint_enabled.gd"
 
 [display]
 

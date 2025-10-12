@@ -1,0 +1,163 @@
+[gd_scene load_steps=10 format=3 uid="uid://vc12tnhtob7t"]
+
+[ext_resource type="Script" uid="uid://btixw56gvsxyu" path="res://scripts/spike_trap.gd" id="1_u4qhk"]
+[ext_resource type="Texture2D" uid="uid://0c1yypqjtxkj" path="res://assets/Moving Spikes 32x32 scaled 64x64.png" id="2_adao6"]
+
+[sub_resource type="GDScript" id="GDScript_u4qhk"]
+script/source = "extends Node2D
+"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_prmpu"]
+size = Vector2(60, 190)
+
+[sub_resource type="Animation" id="Animation_u4qhk"]
+resource_name = "shakeandfall"
+length = 0.4
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("..")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.4),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"fall"
+}]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../hurt:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(1, 0), Vector2(0, 0), Vector2(-1, 0), Vector2(0, -0.5), Vector2(1, 0), Vector2(0, 0.5), Vector2(-1, 0), Vector2(0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../detect/DETETECTOR:monitoring")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.2),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_adao6"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../hurt:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../hurt/Sprite2D:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../detect/DETETECTOR:monitoring")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_prmpu"]
+resource_name = "dissappear"
+length = 0.01
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../hurt/Sprite2D:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_sqpae"]
+resource_name = "idle"
+loop_mode = 1
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_prmpu"]
+_data = {
+&"RESET": SubResource("Animation_adao6"),
+&"dissappear": SubResource("Animation_prmpu"),
+&"idle": SubResource("Animation_sqpae"),
+&"shakeandfall": SubResource("Animation_u4qhk")
+}
+
+[node name="Node2D" type="Node2D"]
+scale = Vector2(0.5, 0.5)
+script = ExtResource("1_u4qhk")
+
+[node name="hurt" type="Node2D" parent="."]
+script = SubResource("GDScript_u4qhk")
+
+[node name="Sprite2D" type="Sprite2D" parent="hurt"]
+rotation = 3.14159
+texture = ExtResource("2_adao6")
+region_enabled = true
+region_rect = Rect2(4, 64, 14, 64)
+
+[node name="hurt" type="Area2D" parent="hurt"]
+
+[node name="CollisionShape2D" type="CollisionPolygon2D" parent="hurt/hurt"]
+polygon = PackedVector2Array(0, 30, 6, 20, 6, 16, 0, 12, -6, 16, -6, 20)
+
+[node name="detect" type="Node2D" parent="."]
+position = Vector2(-0.999919, -1.99998)
+rotation = 3.14159
+
+[node name="DETETECTOR" type="Area2D" parent="detect"]
+position = Vector2(-0.999914, -1.99998)
+rotation = -3.14159
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="detect/DETETECTOR"]
+position = Vector2(0, 63)
+shape = SubResource("RectangleShape2D_prmpu")
+
+[node name="Marker2D" type="Marker2D" parent="."]
+position = Vector2(0, 158)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../Marker2D")
+libraries = {
+&"": SubResource("AnimationLibrary_prmpu")
+}
+autoplay = "idle"
+
+[connection signal="body_entered" from="hurt/hurt" to="." method="_on_detector_body_entered"]
+[connection signal="body_entered" from="detect/DETETECTOR" to="." method="_on_playerdetect_body_entered"]

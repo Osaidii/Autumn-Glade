@@ -5,3 +5,4 @@ var last_location
 
 func _ready():
 	last_location = player.global_position
+	

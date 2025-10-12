@@ -54,6 +54,9 @@ func _unhandled_input(event: InputEvent) -> void:
 			attack_anims()
 
 func _ready():
+	if GlobalVariables.cutscene_played:
+		$"../cutscenes".play("move_out_of_way")
+	Scenetransition.end_transition()
 	can_control = true
 	if GlobalVariables.at_checkpoint < 1:
 		cutscenes.play("intro")
@@ -70,6 +73,10 @@ func _ready():
 	GlobalVariables.health_bottles = 0
 
 func _physics_process(delta: float) -> void:
+	#If Died
+	if GlobalVariables.is_dead:
+		dead()
+	
 	#No Control if Dead
 	if GlobalVariables.is_dead: gravity = 0 
 	if GlobalVariables.is_dead: return
@@ -163,10 +170,6 @@ func _physics_process(delta: float) -> void:
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED * delta * 0.08)
 		
-	#If Died
-	if GlobalVariables.is_dead:
-		dead()
-		
 	if !is_crouching and !is_healing and !is_attacking:
 		move_and_slide()
 		
@@ -249,7 +252,6 @@ func dead():
 	Scenetransition.change_scene()
 	await get_tree().create_timer(1.5).timeout
 	get_tree().reload_current_scene()
-	Scenetransition.end_transition()
 
 func cutscene_alr_played():
 	GlobalVariables.cutscene_played = true

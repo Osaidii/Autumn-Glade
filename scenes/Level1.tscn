@@ -1,4 +1,4 @@
-[gd_scene load_steps=193 format=4 uid="uid://1ffj4pyi4mtr"]
+[gd_scene load_steps=194 format=4 uid="uid://1ffj4pyi4mtr"]
 
 [ext_resource type="Script" uid="uid://dm7xcieerp6k5" path="res://scripts/level_1.gd" id="1_thv4y"]
 [ext_resource type="Script" uid="uid://c2f21013qxwle" path="res://scripts/player.gd" id="2_0xqs2"]
@@ -16,6 +16,7 @@
 [ext_resource type="Texture2D" uid="uid://bonhr0cxgtd5w" path="res://assets/healthbarProgress (1).png" id="7_i2gr7"]
 [ext_resource type="Script" uid="uid://sl5nxpcoqsd3" path="res://scripts/health_ui.gd" id="8_t46sy"]
 [ext_resource type="FontFile" uid="uid://clhk3d3yvekk1" path="res://assets/BoldPixels.ttf" id="10_av1gt"]
+[ext_resource type="PackedScene" uid="uid://vc12tnhtob7t" path="res://scenes/spike_trap.tscn" id="12_um3md"]
 [ext_resource type="Texture2D" uid="uid://bmsyqhig8ny26" path="res://assets/platform.png" id="14_u4kti"]
 [ext_resource type="Texture2D" uid="uid://e3f6h3bixquw" path="res://assets/autumn woods/world_tileset.png" id="16_0ybwg"]
 [ext_resource type="Texture2D" uid="uid://cry1v2iabe3hi" path="res://assets/autumn woods/background/background_layer_31.png" id="16_i2gr7"]
@@ -4579,6 +4580,9 @@ position = Vector2(6515, -133)
 
 [node name="Sprite2D43" parent="Spikes" instance=ExtResource("26_gumju")]
 position = Vector2(6522, -133)
+
+[node name="Node2D" parent="." instance=ExtResource("12_um3md")]
+position = Vector2(477.285, -133.378)
 
 [connection signal="body_entered" from="danger" to="danger" method="_on_body_entered"]
 [connection signal="animation_finished" from="CharacterBody2D/Animations" to="CharacterBody2D" method="_on_animated_sprite_2d_animation_finished"]

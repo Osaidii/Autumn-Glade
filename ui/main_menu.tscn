@@ -1369,7 +1369,7 @@ vertical_alignment = 1
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="."]
 material = SubResource("CanvasItemMaterial_p8ri8")
-position = Vector2(625, 221)
+position = Vector2(834, 221)
 amount = 150
 texture = ExtResource("6_ei257")
 lifetime = 3.0
