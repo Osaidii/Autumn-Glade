@@ -16,7 +16,6 @@
 [ext_resource type="Texture2D" uid="uid://bonhr0cxgtd5w" path="res://assets/healthbarProgress (1).png" id="7_i2gr7"]
 [ext_resource type="Script" uid="uid://sl5nxpcoqsd3" path="res://scripts/health_ui.gd" id="8_t46sy"]
 [ext_resource type="FontFile" uid="uid://clhk3d3yvekk1" path="res://assets/BoldPixels.ttf" id="10_av1gt"]
-[ext_resource type="PackedScene" uid="uid://vc12tnhtob7t" path="res://scenes/spike_trap.tscn" id="12_um3md"]
 [ext_resource type="Texture2D" uid="uid://bmsyqhig8ny26" path="res://assets/platform.png" id="14_u4kti"]
 [ext_resource type="Texture2D" uid="uid://e3f6h3bixquw" path="res://assets/autumn woods/world_tileset.png" id="16_0ybwg"]
 [ext_resource type="Texture2D" uid="uid://cry1v2iabe3hi" path="res://assets/autumn woods/background/background_layer_31.png" id="16_i2gr7"]
@@ -28,6 +27,7 @@
 [ext_resource type="PackedScene" uid="uid://dy7c5pdphpat1" path="res://scenes/normal_spike.tscn" id="24_xgw5r"]
 [ext_resource type="PackedScene" uid="uid://bsyi66ppweix5" path="res://scenes/tall_spike.tscn" id="25_ntbnh"]
 [ext_resource type="PackedScene" uid="uid://pamnpw7hfe5j" path="res://scenes/spike.tscn" id="26_gumju"]
+[ext_resource type="PackedScene" uid="uid://bofdd7qv1qi5n" path="res://scenes/closed_moving_platform.tscn" id="28_um3md"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lbhrr"]
 size = Vector2(22983.6, 339.007)
@@ -4581,8 +4581,8 @@ position = Vector2(6515, -133)
 [node name="Sprite2D43" parent="Spikes" instance=ExtResource("26_gumju")]
 position = Vector2(6522, -133)
 
-[node name="Node2D" parent="." instance=ExtResource("12_um3md")]
-position = Vector2(477.285, -133.378)
+[node name="Path" parent="." instance=ExtResource("28_um3md")]
+position = Vector2(0, -45)
 
 [connection signal="body_entered" from="danger" to="danger" method="_on_body_entered"]
 [connection signal="animation_finished" from="CharacterBody2D/Animations" to="CharacterBody2D" method="_on_animated_sprite_2d_animation_finished"]
