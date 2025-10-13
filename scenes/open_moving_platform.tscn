@@ -5,9 +5,9 @@
 
 [sub_resource type="Curve2D" id="Curve2D_1tdcd"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 77, 0, 0, 0, 0, 0, 156, 0)
+"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 201.264, 0.105011)
 }
-point_count = 3
+point_count = 2
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mb26n"]
 size = Vector2(20.4738, 20)
@@ -38,7 +38,7 @@ tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(-1.56, -1.56),
+"transitions": PackedFloat32Array(-2, -2),
 "update": 0,
 "values": [0.0, 1.0]
 }
@@ -53,8 +53,8 @@ _data = {
 curve = SubResource("Curve2D_1tdcd")
 
 [node name="PathFollow2D" type="PathFollow2D" parent="."]
-position = Vector2(15.5821, 0)
-progress = 15.6
+position = Vector2(20.104, 0.0104894)
+progress = 20.1264
 rotates = false
 loop = false
 

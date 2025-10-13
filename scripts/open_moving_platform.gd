@@ -9,5 +9,5 @@ var direction = 1
 var progress_ratio
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _physics_process(delta: float) -> void:
+func _ready() -> void:
 	animator.play("notlooping")

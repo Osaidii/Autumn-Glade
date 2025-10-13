@@ -1,6 +1,6 @@
 extends AnimatableBody2D
 
-var move_speed = 0.01
+@export var move_speed = 0.01
 var direction = 1
 
 @onready var path_follow_2d: PathFollow2D = $".."
