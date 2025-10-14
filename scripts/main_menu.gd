@@ -1,7 +1,7 @@
 extends Control
 
 @onready var animations: AnimatedSprite2D = $Animations
-var LEVEL_1 = preload("res://scenes/Level1.tscn") as PackedScene
+var LEVEL_1 = preload("res://scenes/Level1.tscn")
 @onready var select: AudioStreamPlayer = $Select
 
 func _ready():
