@@ -33,6 +33,7 @@ var is_healing = false
 var is_attacking = false
 var can_attack = true
 var was_on_floor = true
+var jump_tut_playing = false
 
 enum AttackStates {ATT1, ATT2, ATT3, CROUCH}
 var which_att_state = AttackStates.ATT1
@@ -54,6 +55,7 @@ func _unhandled_input(event: InputEvent) -> void:
 			attack_anims()
 
 func _ready():
+	jump_tut_playing = false
 	if GlobalVariables.cutscene_played:
 		$"../cutscenes".play("move_out_of_way")
 	Scenetransition.end_transition()
@@ -84,6 +86,9 @@ func _physics_process(delta: float) -> void:
 	if is_attacking: return
 	
 	animations.position.y = -2
+	
+	if jump_tut_playing and Input.is_action_pressed("jump"):
+		cutscenes.play("jump_out")
 	
 	if GlobalVariables.spike:
 		GlobalVariables.is_dead = true
@@ -262,3 +267,8 @@ func _on_attack_cooldown_timeout() -> void:
 
 func _on_combo_reset_timeout() -> void:
 	which_att_state = AttackStates.ATT1
+
+func _on_jump_detector_body_entered(body: Node2D) -> void:
+	if body is Player:
+		cutscenes.play("jump_tut")
+		jump_tut_playing = true
