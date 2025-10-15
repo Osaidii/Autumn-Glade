@@ -58,7 +58,6 @@ func _ready():
 	jump_tut_playing = false
 	if GlobalVariables.cutscene_played:
 		$"../cutscenes".play("move_out_of_way")
-	Scenetransition.end_transition()
 	can_control = true
 	if GlobalVariables.at_checkpoint < 1:
 		cutscenes.play("intro")
@@ -255,8 +254,9 @@ func dead():
 	collision.disabled = true
 	animations.play("die")
 	Scenetransition.change_scene()
-	await get_tree().create_timer(1.5).timeout
+	await get_tree().create_timer(1).timeout
 	get_tree().reload_current_scene()
+	Scenetransition.end_transition()
 
 func cutscene_alr_played():
 	GlobalVariables.cutscene_played = true

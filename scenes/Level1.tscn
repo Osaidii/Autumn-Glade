@@ -3301,6 +3301,62 @@ tracks/10/keys = {
 "values": [1.0]
 }
 
+[sub_resource type="Animation" id="Animation_um3md"]
+resource_name = "jump_out"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../../CharacterBody2D/Jump:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.5),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../../CharacterBody2D/Jump:visible_ratio")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 1.0]
+}
+
+[sub_resource type="Animation" id="Animation_vbuca"]
+resource_name = "jump_tut"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../../CharacterBody2D/Jump:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../../CharacterBody2D/Jump:visible_ratio")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 1.0]
+}
+
 [sub_resource type="Animation" id="Animation_thv4y"]
 resource_name = "move_out"
 length = 0.5
@@ -3435,62 +3491,6 @@ tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/path = NodePath("../../CharacterBody2D/Move:visible_ratio")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [0.0, 1.0]
-}
-
-[sub_resource type="Animation" id="Animation_vbuca"]
-resource_name = "jump_tut"
-length = 0.5
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("../../CharacterBody2D/Jump:visible")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("../../CharacterBody2D/Jump:visible_ratio")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [0.0, 1.0]
-}
-
-[sub_resource type="Animation" id="Animation_um3md"]
-resource_name = "jump_out"
-length = 0.5
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("../../CharacterBody2D/Jump:visible")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0.5),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("../../CharacterBody2D/Jump:visible_ratio")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -4057,7 +4057,7 @@ scale = Vector2(0.997307, 1.01966)
 curve = SubResource("Curve2D_qwon6")
 
 [node name="PathFollow2D" type="PathFollow2D" parent="Platforms/open5"]
-position = Vector2(22.0348, 0)
+position = Vector2(22.0349, 0)
 progress = 22.0594
 rotates = false
 loop = false
@@ -4293,7 +4293,6 @@ libraries = {
 }
 
 [node name="CanvasLayer2" type="CanvasLayer" parent="."]
-visible = false
 
 [node name="ColorRect" type="ColorRect" parent="CanvasLayer2"]
 offset_right = 1920.0
@@ -5192,7 +5191,7 @@ position = Vector2(10151, -112)
 
 [node name="Node2D" type="Node2D" parent="Spikes"]
 z_index = -2
-position = Vector2(10364, -220)
+position = Vector2(10365, -224)
 scale = Vector2(0.5, 0.5)
 script = ExtResource("28_wnofu")
 
@@ -5234,7 +5233,7 @@ autoplay = "idle"
 
 [node name="Node2D2" type="Node2D" parent="Spikes"]
 z_index = -2
-position = Vector2(10371, -226)
+position = Vector2(10372, -230)
 scale = Vector2(0.5, 0.5)
 script = ExtResource("28_wnofu")
 
@@ -5274,9 +5273,18 @@ libraries = {
 }
 autoplay = "idle"
 
+[node name="CPUParticles2D" type="CPUParticles2D" parent="Spikes/Node2D2"]
+amount = 7
+lifetime = 0.5
+speed_scale = 0.05
+randomness = 1.0
+emission_shape = 1
+emission_sphere_radius = 30.0
+color = Color(0.254902, 0.172549, 0.137255, 1)
+
 [node name="Node2D3" type="Node2D" parent="Spikes"]
 z_index = -2
-position = Vector2(10378, -219)
+position = Vector2(10379, -223)
 scale = Vector2(0.5, 0.5)
 script = ExtResource("28_wnofu")
 
@@ -5316,9 +5324,18 @@ libraries = {
 }
 autoplay = "idle"
 
+[node name="CPUParticles2D" type="CPUParticles2D" parent="Spikes/Node2D3"]
+amount = 7
+lifetime = 0.5
+speed_scale = 0.05
+randomness = 1.0
+emission_shape = 1
+emission_sphere_radius = 30.0
+color = Color(0.254902, 0.172549, 0.137255, 1)
+
 [node name="Node2D4" type="Node2D" parent="Spikes"]
 z_index = -2
-position = Vector2(10386, -225)
+position = Vector2(10386, -228)
 scale = Vector2(0.5, 0.5)
 script = ExtResource("28_wnofu")
 
@@ -5363,6 +5380,9 @@ position = Vector2(171.462, -11.7686)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="jump_detector"]
 shape = SubResource("RectangleShape2D_wnofu")
+
+[node name="Sprite2D" parent="." instance=ExtResource("27_vbuca")]
+position = Vector2(-14.0378, -4.9036)
 
 [connection signal="body_entered" from="danger" to="danger" method="_on_body_entered"]
 [connection signal="animation_finished" from="CharacterBody2D/Animations" to="CharacterBody2D" method="_on_animated_sprite_2d_animation_finished"]

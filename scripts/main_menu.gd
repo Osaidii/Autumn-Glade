@@ -1,7 +1,7 @@
 extends Control
 
 @onready var animations: AnimatedSprite2D = $Animations
-var LEVEL_1 = preload("res://scenes/Level1.tscn")
+var LEVEL_1 = ("res://scenes/Level1.tscn")
 @onready var select: AudioStreamPlayer = $Select
 
 func _ready():
@@ -15,12 +15,13 @@ func play():
 	$Select.play()
 	Scenetransition.change_scene()
 	await get_tree().create_timer(1.5).timeout
-	get_tree().change_scene_to_packed(LEVEL_1)
+	get_tree().change_scene_to_file(LEVEL_1)
 	Scenetransition.end_transition()
 
 func quit():
 	$Select.play()
-	await get_tree().create_timer(0.5).timeout
+	Scenetransition.change_scene()
+	await get_tree().create_timer(1).timeout
 	get_tree().quit()
 
 func settings():
