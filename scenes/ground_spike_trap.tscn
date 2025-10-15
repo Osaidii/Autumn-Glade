@@ -1,0 +1,84 @@
+[gd_scene load_steps=7 format=3 uid="uid://8ou4enlugjnx"]
+
+[ext_resource type="Script" uid="uid://c5eql1tkjpxe8" path="res://scripts/ground_spike_trap.gd" id="1_nv3vi"]
+[ext_resource type="Texture2D" uid="uid://0c1yypqjtxkj" path="res://assets/Moving Spikes 32x32 scaled 64x64.png" id="1_qh4ui"]
+
+[sub_resource type="Animation" id="Animation_7h0sq"]
+resource_name = "RESET"
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("hurt:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 22)]
+}
+
+[sub_resource type="Animation" id="Animation_wc2cj"]
+resource_name = "reveal"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("hurt:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 22), Vector2(0, -10)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_c8gfh"]
+_data = {
+&"RESET": SubResource("Animation_7h0sq"),
+&"reveal": SubResource("Animation_wc2cj")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wc2cj"]
+size = Vector2(60, 221)
+
+[node name="ground_spike_trap" type="Node2D"]
+scale = Vector2(0.5, 0.5)
+script = ExtResource("1_nv3vi")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_c8gfh")
+}
+
+[node name="hurt" type="Node2D" parent="."]
+position = Vector2(0, 22)
+
+[node name="Sprite2D" type="Sprite2D" parent="hurt"]
+texture = ExtResource("1_qh4ui")
+region_enabled = true
+region_rect = Rect2(2, 64, 18, 39)
+
+[node name="hurt" type="Area2D" parent="hurt"]
+
+[node name="CollisionShape2D" type="CollisionPolygon2D" parent="hurt/hurt"]
+position = Vector2(0, 14)
+rotation = 3.14159
+polygon = PackedVector2Array(0, 30, 6, 20, 6, 16, 0, 12, -6, 16, -6, 20)
+
+[node name="detect" type="Node2D" parent="."]
+position = Vector2(-0.999919, -1.99998)
+rotation = 3.14159
+
+[node name="DETETECTOR" type="Area2D" parent="detect"]
+position = Vector2(-0.999914, -1.99998)
+rotation = -3.14159
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="detect/DETETECTOR"]
+position = Vector2(-5.96046e-08, -110)
+shape = SubResource("RectangleShape2D_wc2cj")
+
+[connection signal="body_entered" from="hurt/hurt" to="." method="_on_hurt_body_entered"]
+[connection signal="body_entered" from="detect/DETETECTOR" to="." method="_on_detetector_body_entered"]
