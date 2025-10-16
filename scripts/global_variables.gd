@@ -10,3 +10,5 @@ var jump_tut = false
 var moved = false
 var is_dead = false
 var spike = false
+var on_jump_pad = false
+var jump_tut_played = false

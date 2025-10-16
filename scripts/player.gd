@@ -54,8 +54,8 @@ func _unhandled_input(event: InputEvent) -> void:
 			attack_anims()
 
 func _ready():
-	if GlobalVariables.jump_tut:
-		$Jump.queue_free()
+	if GlobalVariables.jump_tut_played:
+		$"../jump_detector/CollisionShape2D".queue_free()
 	GlobalVariables.jump_tut = false
 	if GlobalVariables.cutscene_played:
 		$"../cutscenes".play("move_out_of_way")
@@ -100,6 +100,9 @@ func _physics_process(delta: float) -> void:
 		GlobalVariables.moved = true
 	if GlobalVariables.moved == true:
 		$"../cutscenes".play("move_out")
+	
+	if GlobalVariables.on_jump_pad:
+		on_jump_pad()
 	
 	set_mouse()
 	
@@ -164,7 +167,6 @@ func _physics_process(delta: float) -> void:
 		is_jumping = false
 	if !Input.is_action_pressed("jump") and velocity.y > 0 and !is_falling:
 		velocity.y *= 0.4
-	
 	
 	if velocity.y > 0 and !is_on_floor():
 		is_falling = true
@@ -272,7 +274,7 @@ func _on_combo_reset_timeout() -> void:
 func jump_out():
 	for i in range(20):
 		await get_tree().create_timer(0.02).timeout
-		$Jump.visible_characters -= 1
+		$Jump.visible_ratio -= 0.01
 	$Jump.visible = false
 	GlobalVariables.jump_tut = false
 
@@ -284,4 +286,11 @@ func _on_jump_detector_body_entered(body: Node2D) -> void:
 			await get_tree().create_timer(0.02).timeout
 			$Jump.visible_characters += 1
 		GlobalVariables.jump_tut = true
+		GlobalVariables.jump_tut_played = true
 		$"../jump_detector/CollisionShape2D".queue_free()
+
+func on_jump_pad():
+	velocity.y = -400
+	var anim = "hello"
+	anims(anim)
+	GlobalVariables.on_jump_pad = false
