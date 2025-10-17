@@ -6,3 +6,4 @@
 stream = ExtResource("1_tf816")
 volume_db = -16.0
 autoplay = true
+bus = &"Bg Music"

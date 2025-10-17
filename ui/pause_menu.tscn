@@ -202,6 +202,7 @@ text = "Quit"
 [node name="Select" type="AudioStreamPlayer" parent="."]
 process_mode = 3
 stream = ExtResource("4_avurv")
+bus = &"Pause Menu"
 
 [connection signal="focus_exited" from="VBoxContainer/Resume" to="." method="_on_resume_focus_exited"]
 [connection signal="pressed" from="VBoxContainer/Resume" to="." method="_on_resume_pressed"]
