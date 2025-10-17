@@ -1,4 +1,4 @@
-[gd_scene load_steps=265 format=4 uid="uid://1ffj4pyi4mtr"]
+[gd_scene load_steps=266 format=4 uid="uid://1ffj4pyi4mtr"]
 
 [ext_resource type="Script" uid="uid://dm7xcieerp6k5" path="res://scripts/level_1.gd" id="1_thv4y"]
 [ext_resource type="Script" uid="uid://c2f21013qxwle" path="res://scripts/player.gd" id="2_0xqs2"]
@@ -16,13 +16,14 @@
 [ext_resource type="Texture2D" uid="uid://bonhr0cxgtd5w" path="res://assets/healthbarProgress (1).png" id="7_i2gr7"]
 [ext_resource type="Script" uid="uid://sl5nxpcoqsd3" path="res://scripts/health_ui.gd" id="8_t46sy"]
 [ext_resource type="FontFile" uid="uid://clhk3d3yvekk1" path="res://assets/BoldPixels.ttf" id="10_av1gt"]
+[ext_resource type="AudioStream" uid="uid://bvyv1kfb754nk" path="res://assets/Untitled video - Made with Clipchamp.wav" id="14_rfxdd"]
 [ext_resource type="Texture2D" uid="uid://bmsyqhig8ny26" path="res://assets/platform.png" id="14_u4kti"]
+[ext_resource type="AudioStream" uid="uid://c4yucaftrope5" path="res://assets/text.wav" id="15_kn0xh"]
 [ext_resource type="Texture2D" uid="uid://e3f6h3bixquw" path="res://assets/autumn woods/world_tileset.png" id="16_0ybwg"]
 [ext_resource type="Texture2D" uid="uid://cry1v2iabe3hi" path="res://assets/autumn woods/background/background_layer_31.png" id="16_i2gr7"]
 [ext_resource type="Texture2D" uid="uid://dbppcwbhgfl3s" path="res://addons/TX Village Props.png" id="16_qwon6"]
 [ext_resource type="PackedScene" uid="uid://ddtihdb241ujt" path="res://scenes/barrier.tscn" id="17_r7dij"]
 [ext_resource type="Script" uid="uid://dlmkrdbcopgr1" path="res://scripts/checkpoint_manager.gd" id="18_2ouud"]
-[ext_resource type="FontFile" uid="uid://cooru4571hq3d" path="res://assets/Cinzel-Medium.ttf" id="18_jrm5b"]
 [ext_resource type="PackedScene" uid="uid://bc3dnuwu2miok" path="res://scenes/jump_pad.tscn" id="18_vgt1y"]
 [ext_resource type="Script" uid="uid://cp5a8uosbehca" path="res://scripts/respawn.gd" id="21_0ybwg"]
 [ext_resource type="Texture2D" uid="uid://b2kfv3cajx3dd" path="res://assets/flag animation.png" id="22_xgw5r"]
@@ -1454,6 +1455,7 @@ shadow_color = Color(0.964742, 0.964742, 0.964742, 0)
 
 [sub_resource type="Environment" id="Environment_76388"]
 background_mode = 3
+glow_enabled = true
 adjustment_enabled = true
 adjustment_brightness = 1.1
 adjustment_saturation = 1.1
@@ -4429,7 +4431,7 @@ tracks/13/keys = {
 tracks/14/type = "value"
 tracks/14/imported = false
 tracks/14/enabled = true
-tracks/14/path = NodePath("../../CanvasLayer2/area name:visible")
+tracks/14/path = NodePath("../../CharacterBody2D/Labels/AudioStreamPlayer2D:playing")
 tracks/14/interp = 1
 tracks/14/loop_wrap = true
 tracks/14/keys = {
@@ -4441,26 +4443,26 @@ tracks/14/keys = {
 tracks/15/type = "value"
 tracks/15/imported = false
 tracks/15/enabled = true
-tracks/15/path = NodePath("../../CanvasLayer2/area name:modulate")
+tracks/15/path = NodePath("../../CharacterBody2D/Labels/AudioStreamPlayer2D:pitch_scale")
 tracks/15/interp = 1
 tracks/15/loop_wrap = true
 tracks/15/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Color(1, 1, 1, 1)]
+"values": [1.13]
 }
 tracks/16/type = "value"
 tracks/16/imported = false
 tracks/16/enabled = true
-tracks/16/path = NodePath("../../CanvasLayer2/area name:scale")
+tracks/16/path = NodePath("../../CharacterBody2D/Labels/AudioStreamPlayer2D2:playing")
 tracks/16/interp = 1
 tracks/16/loop_wrap = true
 tracks/16/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(1, 1)]
+"update": 1,
+"values": [false]
 }
 
 [sub_resource type="Animation" id="Animation_u4kti"]
@@ -4468,7 +4470,7 @@ resource_name = "enemy_attack"
 
 [sub_resource type="Animation" id="Animation_ecr63"]
 resource_name = "intro"
-length = 50.0
+length = 22.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -4476,7 +4478,7 @@ tracks/0/path = NodePath("../../CharacterBody2D:can_control")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 30.5),
+"times": PackedFloat32Array(0, 21.4),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [false, true]
@@ -4488,7 +4490,7 @@ tracks/1/path = NodePath("../../CharacterBody2D/Animations")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 24),
+"times": PackedFloat32Array(0, 20.0333),
 "transitions": PackedFloat32Array(1, 1),
 "values": [{
 "args": [&"lying down", 1.0, false],
@@ -4505,7 +4507,7 @@ tracks/2/path = NodePath("../../CharacterBody2D/Labels/cutscene 1:visible_ratio"
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(1.25833, 2.75833, 2.78333, 2.80833, 2.83333, 2.85833, 2.88333, 2.90833, 2.93333, 2.95833, 2.98333, 3.00833, 3.03333, 3.05833, 6.46667, 7.2),
+"times": PackedFloat32Array(0.79166, 2.29166, 2.31666, 2.34166, 2.36666, 2.39166, 2.41666, 2.44166, 2.46666, 2.49166, 2.51666, 2.54166, 2.56666, 2.59166, 6, 6.73333),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 0,
 "values": [0.0, 0.0, 0.077, 0.154, 0.231, 0.31, 0.385, 0.462, 0.54, 0.616, 0.693, 0.85, 0.93, 1.0, 1.0, 0.0]
@@ -4517,7 +4519,7 @@ tracks/3/path = NodePath("../../CharacterBody2D/Labels/cutscene 2:visible_ratio"
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(18.7333, 18.7583, 18.7833, 18.8083, 18.8333, 18.8583, 18.8833, 18.9083, 18.9333, 18.9583, 18.9833, 19.0083, 19.0333, 22.2333, 22.8667),
+"times": PackedFloat32Array(15.5833, 15.6083, 15.6333, 15.6583, 15.6833, 15.7083, 15.7333, 15.7583, 15.7833, 15.8083, 15.8333, 15.8583, 15.8833, 18.4667, 18.9),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 0,
 "values": [0.0, 0.077, 0.154, 0.231, 0.31, 0.385, 0.462, 0.54, 0.616, 0.693, 0.85, 0.93, 1.0, 1.0, 0.0]
@@ -4529,7 +4531,7 @@ tracks/4/path = NodePath("../../CanvasLayer2/ColorRect:position")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
-"times": PackedFloat32Array(0, 24, 25),
+"times": PackedFloat32Array(0, 20.1333, 20.8),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [Vector2(0, 0), Vector2(0, 0), Vector2(0, -178)]
@@ -4541,7 +4543,7 @@ tracks/5/path = NodePath("../../CanvasLayer2/ColorRect2:position")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
-"times": PackedFloat32Array(0, 24, 25),
+"times": PackedFloat32Array(0, 20.1333, 20.8),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [Vector2(0, 851), Vector2(0, 851), Vector2(0, 1015)]
@@ -4553,7 +4555,7 @@ tracks/6/path = NodePath("../../CanvasLayer2/ColorRect2:pivot_offset")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
-"times": PackedFloat32Array(0, 25),
+"times": PackedFloat32Array(0, 20.8),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Vector2(0, -823), Vector2(0, -1015)]
@@ -4565,7 +4567,7 @@ tracks/7/path = NodePath("../../CharacterBody2D/Camera2D:offset")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
-"times": PackedFloat32Array(0, 0.733333, 0.766667, 0.8, 0.833333, 0.866667, 0.9, 0.933333, 0.966667, 24),
+"times": PackedFloat32Array(0, 0.733333, 0.766667, 0.8, 0.833333, 0.866667, 0.9, 0.933333, 0.966667, 20.1333),
 "transitions": PackedFloat32Array(1, -1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 0,
 "values": [Vector2(0, -75), Vector2(0, -60), Vector2(0, -52), Vector2(0, -45), Vector2(0, -39), Vector2(0, -34), Vector2(0, -30), Vector2(0, -27), Vector2(0, -25), Vector2(0, -25)]
@@ -4577,7 +4579,7 @@ tracks/8/path = NodePath("../../CharacterBody2D/Camera2D:zoom")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/keys = {
-"times": PackedFloat32Array(0, 1.26667, 24, 25.5),
+"times": PackedFloat32Array(0, 1.26667, 20.1333, 21.3),
 "transitions": PackedFloat32Array(1, -2, 1, 1),
 "update": 0,
 "values": [Vector2(4, 4), Vector2(6, 6), Vector2(6, 6), Vector2(3.5, 3.5)]
@@ -4589,7 +4591,7 @@ tracks/9/path = NodePath("../../CharacterBody2D")
 tracks/9/interp = 1
 tracks/9/loop_wrap = true
 tracks/9/keys = {
-"times": PackedFloat32Array(30.5),
+"times": PackedFloat32Array(20.7),
 "transitions": PackedFloat32Array(1),
 "values": [{
 "args": [],
@@ -4603,7 +4605,7 @@ tracks/10/path = NodePath("../../CharacterBody2D/Labels/cutscene 3:visible_ratio
 tracks/10/interp = 1
 tracks/10/loop_wrap = true
 tracks/10/keys = {
-"times": PackedFloat32Array(11.1, 11.125, 11.15, 11.175, 11.2, 11.225, 11.25, 11.275, 11.3, 11.325, 11.35, 11.375, 11.4, 14.6, 15.2333),
+"times": PackedFloat32Array(11.2167, 11.2583, 11.2833, 11.3083, 11.3333, 11.3583, 11.3833, 11.4083, 11.4333, 11.4583, 11.4833, 11.5083, 11.5333, 14.3, 14.7667),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 0,
 "values": [0.0, 0.077, 0.154, 0.231, 0.31, 0.385, 0.462, 0.54, 0.616, 0.693, 0.85, 0.93, 1.0, 1.0, 0.0]
@@ -4611,38 +4613,38 @@ tracks/10/keys = {
 tracks/11/type = "value"
 tracks/11/imported = false
 tracks/11/enabled = true
-tracks/11/path = NodePath("../../CanvasLayer2/area name:visible")
+tracks/11/path = NodePath("../../CharacterBody2D/Labels/AudioStreamPlayer2D:playing")
 tracks/11/interp = 1
 tracks/11/loop_wrap = true
 tracks/11/keys = {
-"times": PackedFloat32Array(26),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(8.53333, 9.83333, 11.3),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
-"values": [true]
+"values": [true, true, false]
 }
 tracks/12/type = "value"
 tracks/12/imported = false
 tracks/12/enabled = true
-tracks/12/path = NodePath("../../CanvasLayer2/area name:modulate")
+tracks/12/path = NodePath("../../CharacterBody2D/Labels/AudioStreamPlayer2D:pitch_scale")
 tracks/12/interp = 1
 tracks/12/loop_wrap = true
 tracks/12/keys = {
-"times": PackedFloat32Array(26.1, 27, 29.1, 30),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
+"times": PackedFloat32Array(0.0333333, 10.3333),
+"transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+"values": [1.0, 1.13]
 }
 tracks/13/type = "value"
 tracks/13/imported = false
 tracks/13/enabled = true
-tracks/13/path = NodePath("../../CanvasLayer2/area name:scale")
+tracks/13/path = NodePath("../../CharacterBody2D/Labels/AudioStreamPlayer2D2:playing")
 tracks/13/interp = 1
 tracks/13/loop_wrap = true
 tracks/13/keys = {
-"times": PackedFloat32Array(26.1, 27, 29.1, 30),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 0,
-"values": [Vector2(1.5, 1.5), Vector2(1, 1), Vector2(1, 1), Vector2(0.5, 0.5)]
+"times": PackedFloat32Array(2.575, 2.875, 11.2, 11.5333, 15.5667, 16),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [true, false, true, false, true, false]
 }
 
 [sub_resource type="Animation" id="Animation_um3md"]
@@ -5967,10 +5969,10 @@ one_shot = true
 [node name="Labels" type="Node" parent="CharacterBody2D"]
 
 [node name="cutscene 1" type="Label" parent="CharacterBody2D/Labels"]
-offset_left = -164.0
-offset_top = -49.0
-offset_right = -13.0
-offset_bottom = -26.0
+offset_left = -165.0
+offset_top = -43.0
+offset_right = -14.0
+offset_bottom = -20.0
 scale = Vector2(0.6, 0.6)
 text = "What A Nice Day!"
 label_settings = SubResource("LabelSettings_r7dij")
@@ -5978,26 +5980,36 @@ visible_characters = 0
 visible_ratio = 0.0
 
 [node name="cutscene 2" type="Label" parent="CharacterBody2D/Labels"]
-offset_left = -180.0
-offset_top = -49.0
-offset_right = 59.0
-offset_bottom = -26.0
+offset_left = -174.0
+offset_top = -43.0
+offset_right = 65.0
+offset_bottom = -20.0
 scale = Vector2(0.6, 0.6)
-text = "I Have to Head Back"
+text = "I Need to Get Back"
 label_settings = SubResource("LabelSettings_r7dij")
 visible_characters = 0
 visible_ratio = 0.0
 
 [node name="cutscene 3" type="Label" parent="CharacterBody2D/Labels"]
-offset_left = -195.0
-offset_top = -60.0
-offset_right = 49.0
-offset_bottom = -37.0
+offset_left = -173.0
+offset_top = -43.0
+offset_right = 71.0
+offset_bottom = -20.0
 scale = Vector2(0.6, 0.6)
-text = "*He* Should be Around Here"
+text = "Is *He* Around Here?"
 label_settings = SubResource("LabelSettings_r7dij")
 visible_characters = 0
 visible_ratio = 0.0
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="CharacterBody2D/Labels"]
+stream = ExtResource("14_rfxdd")
+volume_db = 3.741
+pitch_scale = 1.13
+max_distance = 4096.0
+
+[node name="AudioStreamPlayer2D2" type="AudioStreamPlayer2D" parent="CharacterBody2D/Labels"]
+stream = ExtResource("15_kn0xh")
+volume_db = 2.0
 
 [node name="Move" type="RichTextLabel" parent="CharacterBody2D"]
 visible = false
@@ -6068,29 +6080,6 @@ offset_bottom = 974.0
 scale = Vector2(1, 1.08)
 pivot_offset = Vector2(0, -823)
 color = Color(0, 0, 0, 1)
-
-[node name="area name" type="Label" parent="CanvasLayer2"]
-visible = false
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -165.0
-offset_top = -209.0
-offset_right = 165.0
-offset_bottom = -142.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/shadow_offset_x = 24
-theme_override_constants/shadow_offset_y = 24
-theme_override_constants/outline_size = 17
-theme_override_constants/shadow_outline_size = 100
-theme_override_fonts/font = ExtResource("18_jrm5b")
-theme_override_font_sizes/font_size = 145
-text = "-{Outskirts}-"
-horizontal_alignment = 1
-vertical_alignment = 1
 
 [node name="ParallaxBackground3" type="ParallaxBackground" parent="."]
 offset = Vector2(0, -450)

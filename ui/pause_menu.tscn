@@ -210,5 +210,6 @@ stream = ExtResource("4_avurv")
 [connection signal="focus_entered" from="VBoxContainer/Load" to="." method="_on_load_focus_entered"]
 [connection signal="focus_entered" from="VBoxContainer/Options" to="." method="_on_options_focus_entered"]
 [connection signal="focus_entered" from="VBoxContainer/Main Menu" to="." method="_on_main_menu_focus_entered"]
+[connection signal="pressed" from="VBoxContainer/Main Menu" to="." method="_on_main_menu_pressed"]
 [connection signal="focus_entered" from="VBoxContainer/Quit" to="." method="_on_quit_focus_entered"]
 [connection signal="pressed" from="VBoxContainer/Quit" to="." method="_on_quit_pressed"]

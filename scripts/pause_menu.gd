@@ -2,6 +2,7 @@ extends Control
 
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var pause_menu: Control = $"."
+var MAIN_MENU = ("res://ui/main_menu.tscn")
 
 var paused: bool = false
 
@@ -39,6 +40,9 @@ func _on_quit_pressed() -> void:
 	Scenetransition.change_scene()
 	await get_tree().create_timer(1.5).timeout
 	get_tree().quit()
+
+func _on_main_menu_pressed() -> void:
+	get_tree().change_scene_to_file(MAIN_MENU)
 
 func _on_resume_focus_exited() -> void:
 	$Select.play()

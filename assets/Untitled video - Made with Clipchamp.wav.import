@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://bvyv1kfb754nk"
+path="res://.godot/imported/Untitled video - Made with Clipchamp.wav-cdebebcde9d36a1ccb9cd8d680eb6479.sample"
+
+[deps]
+
+source_file="res://assets/Untitled video - Made with Clipchamp.wav"
+dest_files=["res://.godot/imported/Untitled video - Made with Clipchamp.wav-cdebebcde9d36a1ccb9cd8d680eb6479.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2
