@@ -12,4 +12,4 @@ func _on_hurt_body_entered(body: Node2D) -> void:
 func _on_detetector_body_entered(body: Node2D) -> void:
 	if body is Player:
 		animation_player.play("reveal")
-		$detect/DETETECTOR.monitoring = false
+		$detect/DETETECTOR.set_deferred("monitoring", false)

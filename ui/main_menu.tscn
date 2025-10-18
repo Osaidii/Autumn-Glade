@@ -1,4 +1,4 @@
-[gd_scene load_steps=147 format=3 uid="uid://civqrypa3sm2q"]
+[gd_scene load_steps=146 format=3 uid="uid://civqrypa3sm2q"]
 
 [ext_resource type="Script" uid="uid://jjkh2v8awu2n" path="res://scripts/main_menu.gd" id="1_rmr83"]
 [ext_resource type="Texture2D" uid="uid://bkrbxa33pvlvq" path="res://assets/dUGRib.png" id="2_0dkrt"]
@@ -9,7 +9,6 @@
 [ext_resource type="AudioStream" uid="uid://dfkh1d40utveg" path="res://assets/Modern7.mp3" id="7_p8ri8"]
 [ext_resource type="AudioStream" uid="uid://baf0n7lb8024r" path="res://assets/birds-chirping-241045.mp3" id="8_ubpvv"]
 [ext_resource type="AudioStream" uid="uid://d1fh8jshj3ii1" path="res://assets/leaves-crunching-6954.mp3" id="9_arv2f"]
-[ext_resource type="Script" uid="uid://cvhvnwgasimnu" path="res://scripts/settings.gd" id="10_5klac"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_dqkch"]
 atlas = ExtResource("4_rmr83")
@@ -1515,41 +1514,8 @@ libraries = {
 }
 autoplay = "idle sounds"
 
-[node name="SettingsMenu" type="Control" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-script = ExtResource("10_5klac")
-
-[node name="MarginContainer" type="MarginContainer" parent="SettingsMenu"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/margin_left = 25
-theme_override_constants/margin_top = 25
-theme_override_constants/margin_right = 25
-theme_override_constants/margin_bottom = 25
-
-[node name="VBoxContainer" type="VBoxContainer" parent="SettingsMenu/MarginContainer"]
-layout_mode = 2
-theme_override_constants/separation = -48
-
-[node name="BgMusicSlider" type="HSlider" parent="SettingsMenu/MarginContainer/VBoxContainer"]
-layout_mode = 2
-
-[node name="Master Volume" type="HSlider" parent="SettingsMenu/MarginContainer/VBoxContainer"]
-layout_mode = 2
-
 [connection signal="focus_entered" from="Play" to="." method="_on_play_focus_entered"]
 [connection signal="pressed" from="Play" to="." method="play"]
 [connection signal="focus_entered" from="Settings" to="." method="_on_settings_focus_entered"]
-[connection signal="pressed" from="Settings" to="." method="settings"]
 [connection signal="focus_entered" from="Quit" to="." method="_on_quit_focus_entered"]
 [connection signal="pressed" from="Quit" to="." method="quit"]
-[connection signal="value_changed" from="SettingsMenu/MarginContainer/VBoxContainer/BgMusicSlider" to="SettingsMenu" method="_on_volume_value_changed"]

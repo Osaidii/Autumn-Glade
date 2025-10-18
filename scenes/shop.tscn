@@ -1,0 +1,60 @@
+[gd_scene load_steps=9 format=3 uid="uid://cjvtk5gjj1x46"]
+
+[ext_resource type="Texture2D" uid="uid://b1y13db5dex3o" path="res://assets/autumn woods/decorations/shop_anim.png" id="1_lx5au"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xfvoa"]
+atlas = ExtResource("1_lx5au")
+region = Rect2(0, 0, 118, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1l46r"]
+atlas = ExtResource("1_lx5au")
+region = Rect2(118, 0, 118, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_032fp"]
+atlas = ExtResource("1_lx5au")
+region = Rect2(236, 0, 118, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2fc2m"]
+atlas = ExtResource("1_lx5au")
+region = Rect2(354, 0, 118, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8r1wq"]
+atlas = ExtResource("1_lx5au")
+region = Rect2(472, 0, 118, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ajxib"]
+atlas = ExtResource("1_lx5au")
+region = Rect2(590, 0, 118, 128)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_y6sft"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xfvoa")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1l46r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_032fp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2fc2m")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8r1wq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ajxib")
+}],
+"loop": true,
+"name": &"shop",
+"speed": 5.0
+}]
+
+[node name="Shop" type="Node2D"]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_y6sft")
+animation = &"shop"
+frame_progress = 0.354157

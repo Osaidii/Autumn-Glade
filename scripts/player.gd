@@ -113,7 +113,7 @@ func _physics_process(delta: float) -> void:
 	num_of_bottles.text = str(GlobalVariables.health_bottles)
 	
 	#Direction Set
-	direction = Input.get_action_strength("right") - Input.get_action_strength("left")
+	direction = int(Input.get_action_strength("right") - Input.get_action_strength("left"))
 	
 	#Health Set
 	healthset()
@@ -291,6 +291,6 @@ func _on_jump_detector_body_entered(body: Node2D) -> void:
 
 func on_jump_pad():
 	velocity.y = -400
-	var anim = "hello"
-	anims(anim)
+	var anim_temp = "hello"
+	anims(anim_temp)
 	GlobalVariables.on_jump_pad = false
