@@ -83,7 +83,10 @@ func _physics_process(delta: float) -> void:
 	
 	if position.x > 15270:
 		Scenetransition.change_scene()
+		await get_tree().create_timer(1).timeout
 		get_tree().change_scene_to_packed(LEVEL2)
+		await get_tree().create_timer(0.5).timeout
+		Scenetransition.change_scene()
 	
 	#No Control if Dead
 	if GlobalVariables.is_dead: gravity = 0 
