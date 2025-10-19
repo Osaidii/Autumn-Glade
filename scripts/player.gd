@@ -24,6 +24,8 @@ var anim = ""
 const IDLE = preload("res://collisions/idle.tres")
 const CROUTCH = preload("res://collisions/croutch.tres")
 
+const LEVEL2 = preload("res://scenes/Level2.tscn") as PackedScene
+
 var is_walking = false
 var is_running = false
 var is_jumping = false
@@ -79,6 +81,10 @@ func _physics_process(delta: float) -> void:
 	if GlobalVariables.is_dead:
 		dead()
 	
+	if position.x > 15270:
+		Scenetransition.change_scene()
+		get_tree().change_scene_to_packed(LEVEL2)
+	
 	#No Control if Dead
 	if GlobalVariables.is_dead: gravity = 0 
 	if GlobalVariables.is_dead: return
@@ -101,9 +107,6 @@ func _physics_process(delta: float) -> void:
 	if GlobalVariables.moved == true:
 		$"../cutscenes".play("move_out")
 	
-	if GlobalVariables.on_jump_pad:
-		on_jump_pad()
-	
 	set_mouse()
 	
 	#Handle Health Bar
@@ -117,9 +120,6 @@ func _physics_process(delta: float) -> void:
 	
 	#Health Set
 	healthset()
-	
-	#Play Anims
-	anims(anim)
 	
 	#Change Direction
 	facing_dir()
@@ -163,7 +163,7 @@ func _physics_process(delta: float) -> void:
 		if is_on_floor() or !coyote_time.is_stopped():
 			velocity.y = JUMP_VELOCITY
 			is_jumping = true
-	elif is_on_floor():
+	elif is_on_floor() or GlobalVariables.on_jump_pad:
 		is_jumping = false
 	if !Input.is_action_pressed("jump") and velocity.y > 0 and !is_falling:
 		velocity.y *= 0.4
@@ -171,17 +171,23 @@ func _physics_process(delta: float) -> void:
 	if velocity.y > 0 and !is_on_floor():
 		is_falling = true
 	
+	if was_on_floor and !is_on_floor():
+		coyote_time.start()
+	
 	#Move Logic
 	if direction:
 		velocity.x = direction * SPEED * delta
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED * delta * 0.08)
-		
+	
+	if GlobalVariables.on_jump_pad:
+		on_jump_pad()
+	
+	#Play Anims
+	anims(anim)
+	
 	if !is_crouching and !is_healing and !is_attacking:
 		move_and_slide()
-		
-		if was_on_floor and !is_on_floor():
-			coyote_time.start()
 
 func anims(animation):
 	if animation == "lying down":
@@ -291,6 +297,5 @@ func _on_jump_detector_body_entered(body: Node2D) -> void:
 
 func on_jump_pad():
 	velocity.y = -400
-	var anim_temp = "hello"
-	anims(anim_temp)
+	is_jumping = true
 	GlobalVariables.on_jump_pad = false
